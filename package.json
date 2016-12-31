@@ -1,0 +1,28 @@
+{
+  "name": "firecell",
+  "version": "0.1.0",
+  "description": "a local mirror server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sartrey/firecell.git"
+  },
+  "keywords": [
+    "local",
+    "mirror",
+    "server",
+    "static",
+    "anywhere",
+    "everywhere",
+    "fetch"
+  ],
+  "author": "Sartrey Lee",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sartrey/firecell/issues"
+  },
+  "homepage": "https://github.com/sartrey/firecell#readme"
+}

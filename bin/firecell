@@ -1,0 +1,31 @@
+#!/usr/bin/env node
+
+'use strict'
+
+// listen process unhandledRejection for promise
+process.on('unhandledRejection', function (reason) {
+  console.error(
+    'unhandled rejection',
+    reason && (reason.stack || reason.toString())
+  )
+})
+
+function parseConfig(args, keys) {
+  var config = {}
+  var regexp = keys.map(key => new RegExp('^--' + key + '='))
+  args.forEach(arg => {
+    var index = regexp.findIndex(e => e.test(arg))
+    if (index >= 0) {
+      var value = arg.replace(regexp[index], '')
+      config[keys[index]] = value
+    }
+  })
+  return config
+}
+
+const OPT_KEYS = ['port', 'path']
+
+const cwd = process.cwd()
+const cfg = parseConfig(process.argv, ['port', 'path'])
+
+require('../')(cfg)

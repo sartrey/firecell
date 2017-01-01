@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "a local mirror server",
   "main": "index.js",
+  "bin": {
+    "firecell": "bin/firecell"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -24,5 +27,11 @@
   "bugs": {
     "url": "https://github.com/sartrey/firecell/issues"
   },
-  "homepage": "https://github.com/sartrey/firecell#readme"
+  "homepage": "https://github.com/sartrey/firecell#readme",
+  "dependencies": {
+    "lodash": "^4.17.4"
+  },
+  "devDependencies": {
+    "epii-render": "^0.2.0"
+  }
 }

@@ -1,13 +1,15 @@
 {
   "name": "firecell",
-  "version": "0.1.0",
-  "description": "a local mirror server",
+  "version": "1.0.0",
+  "description": "local mirror server",
   "main": "index.js",
   "bin": {
     "firecell": "bin/firecell"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "devp": "NODE_ENV=development node myself/index.js",
+    "make": "NODE_ENV=production node myself/index.js",
+    "test": "node test"
   },
   "repository": {
     "type": "git",
@@ -31,7 +33,12 @@
   "dependencies": {
     "lodash": "^4.17.4"
   },
+  "optionalDependencies": {
+    "chalk": "^1.1.3"
+  },
   "devDependencies": {
-    "epii-render": "^0.2.0"
+    "epii-render": "^0.2.2",
+    "qrcode.react": "^0.6.1",
+    "whatwg-fetch": "^2.0.1"
   }
 }

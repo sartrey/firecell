@@ -1,0 +1,173 @@
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Material Icons'),
+       url('/__/vendor/MaterialIcons.ttf') format('truetype');
+}
+
+.md-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'liga';
+}
+
+.md-icons-lg {
+  font-size: 1.5rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.pull-right {
+  float: right;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  color: #424242;
+  background: #EEEEEE;
+  font-family: "Trebuchet MS";
+}
+
+.field {
+  margin: .75rem;
+
+  input {
+    width: 100%;
+    padding: .5rem;
+    border: 1px solid #ccc;
+    border-radius: 1px;
+    outline: none;
+    transition: .5s;
+
+    &:hover {
+      border-color: #aaa;
+    }
+
+    &:focus {
+      border-color: #666;
+      box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    }
+  }
+}
+
+.btn {
+  cursor: pointer;
+  transition: .3s;
+  user-select: none;
+
+  &.btn-f00:hover {
+    color: #900;
+  }
+
+  &.btn-0f0:hover {
+    color: #360;
+  }
+
+  &.btn-lg {
+    display: block;
+    padding: .8rem;
+    text-align: center;
+    background: rgba(255,255,255,.5);
+    box-shadow: 0 0 3px rgba(0,0,0,.3);
+
+    &:hover {
+      background: #fff;
+      box-shadow: 0 0 3px rgba(0,0,0,.6);
+    }
+  }
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  transition: .5s;
+  z-index: 100;
+
+  .wrapper {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    overflow: hidden;
+    box-shadow: 0 0 .5em 2px rgba(0, 0, 0, 0.2);
+    transition: .3s;
+    z-index: 200;
+
+    .header {
+      color: #FFF176;
+      background: #424242;
+    }
+
+    .content {
+      background: #EEEEEE;
+    }
+
+    .footer {
+      background: #EEEEEE;
+    }
+  }
+}
+
+.alert {
+  margin: .75rem;
+  color: #B71C1C;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  padding: 0 .75rem;
+  color: #FFF176;
+  background: #424242;
+  box-shadow: 0 1px 2px #BDBDBD;
+
+  > div {
+    flex: 1;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+    text-align: left;
+  }
+
+  .mode {
+    display: flex;
+    justify-content: flex-end;
+
+    > div {
+      padding: .75rem 1rem;
+      cursor: pointer;
+
+      &.active {
+        color: #424242;
+        background: #FFF176;
+      }
+    }
+  }
+}
+
+footer {
+}

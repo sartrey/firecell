@@ -1,0 +1,55 @@
+@import "../frame.scss";
+@import "../modal.scss";
+
+.file-list {
+  .file-item {
+    display: flex;
+    margin: .75rem;
+    color: #424242;
+    background: #fff;
+    border-radius: 1px;
+    box-shadow: 0 0 1px rgba(0,0,0,.3);
+    transition: .2s;
+    transition-property: background, box-shadow;
+
+    &:hover {
+      color: #FFF176;
+      background: #424242;
+    }
+
+    .record {
+      flex: 1;
+      padding: .5rem;
+    }
+
+    .action {
+      flex: 8rem 0;
+      text-align: right;
+
+      a {
+        display: inline-block;
+        font-size: 1.3rem;
+        padding: .5rem;
+
+        &:hover {
+          color: #EF5350;
+        }
+      }
+    }
+  }
+}
+
+.file-more {
+  display: flex;
+  margin: .75rem;
+  position: relative;
+
+  > a {
+    flex: 1;
+    margin-right: .75rem;
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
+}

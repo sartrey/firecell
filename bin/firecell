@@ -2,6 +2,8 @@
 
 'use strict'
 
+const os = require('os')
+
 // listen process unhandledRejection for promise
 process.on('unhandledRejection', function (reason) {
   console.error(
@@ -23,9 +25,17 @@ function parseConfig(args, keys) {
   return config
 }
 
-const OPT_KEYS = ['port', 'path']
 
 const cwd = process.cwd()
 const cfg = parseConfig(process.argv, ['port', 'path'])
+if (cfg.path === '~') {
+  cfg.path = os.homedir()
+}
 
-require('../')(cfg)
+require('../')({
+  mode: cfg.path ? 'direct' : 'mirror',
+  port: cfg.port,
+  path: {
+    direct: cfg.path
+  }
+})

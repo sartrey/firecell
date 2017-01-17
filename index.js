@@ -1,7 +1,7 @@
 'use strict'
 
 const http = require('http')
-
+const logger = require('./kernel/logger.js')
 const createFirecell = require('./factory')
 
 /**
@@ -21,10 +21,16 @@ function startFirecell(conf) {
   // create http server for client
   var httpServer = http
     .createServer(server)
-    .listen(config.port)
+    .listen(config.port, function () {
+      logger.warn(`listening at ${config.port}`)
+      logger.warn(`working as ${config.mode} mode`)
+      if (config.mode === 'direct') {
+        logger.info(`working at ${config.path.direct}`)
+      }
+    })
   // httpServer.timeout = 60000
   httpServer.on('clientError', function (error, socket) {
-    console.log('http error >', error.stack)
+    logger.halt('http error >', error.stack)
     socket.end('HTTP/1.1 400 Bad Request\r\n\r\n')
   })
   httpServer.on('timeout', function (error) {

@@ -1,6 +1,6 @@
 # firecell
 
-a local mirror server
+local mirror & static server
 
 ## Usage
 
@@ -16,4 +16,10 @@ firecell
 
 # serve /static at 8080
 firecell --port=8080 --path="/static"
+```
+
+### access homepage
+
+```
+http://localhost:YOUR-PORT
 ```

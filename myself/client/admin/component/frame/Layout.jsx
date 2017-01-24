@@ -39,9 +39,9 @@ export default class Layout extends Component {
     return (
       <div className='wrapper'>
         <Header config={config} onSwitch={e => this.requestConfig()} />
-        <section>
+        <div className='holder'>
           {this.props.children}
-        </section>
+        </div>
         <Footer />
       </div>
     )

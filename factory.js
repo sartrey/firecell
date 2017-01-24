@@ -20,7 +20,8 @@ function createFirecell(conf) {
     mode: 'mirror',
     path: {
       mirror: path.join(HOMEDIR, '.firecell'),
-      direct: HOMEDIR
+      direct: HOMEDIR,
+      cursor: HOMEDIR
     },
     port: 9999
   })

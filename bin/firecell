@@ -36,6 +36,7 @@ require('../')({
   mode: cfg.path ? 'direct' : 'mirror',
   port: cfg.port,
   path: {
-    direct: cfg.path
+    direct: cfg.path,
+    cursor: cfg.path
   }
 })

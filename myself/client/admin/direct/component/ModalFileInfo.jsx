@@ -3,6 +3,16 @@ import QRCode from 'qrcode.react'
 
 import Modal from '../../component/Modal'
 
+function autoUnit(size, fixed) {
+  var units = ['B', 'KB', 'MB', 'GB', 'TB']
+  var depth = 0
+  while (size > 1024) {
+    size = size / 1024
+    depth ++
+  }
+  return size.toFixed(fixed) + units[depth]
+}
+
 export default class ModalFileInfo extends Component {
   constructor(props) {
     super(props)
@@ -27,6 +37,7 @@ export default class ModalFileInfo extends Component {
         </div>
         <div className='detail'>
           <p>{file.name}</p>
+          <p>{autoUnit(file.size, 2)}</p>
           <a onClick={e => this.openShell(file)}>{file.path}</a>
           <a href={weburl} target='_blank'>{weburl}</a>
         </div>

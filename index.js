@@ -1,8 +1,16 @@
 'use strict'
 
 const http = require('http')
+const os = require('os')
 const logger = require('./kernel/logger.js')
 const createFirecell = require('./factory')
+
+function openStart(config) {
+  if (os.platform() === 'darwin') {
+    const assist = require('./kernel/assist.js')
+    assist.safeExecute(`open http://localhost:${config.port}`)
+  }
+}
 
 /**
  * start Firecell
@@ -27,6 +35,7 @@ function startFirecell(conf) {
       if (config.mode === 'direct') {
         logger.info(`working at ${config.path.direct}`)
       }
+      openStart(config)
     })
   // httpServer.timeout = 60000
   httpServer.on('clientError', function (error, socket) {

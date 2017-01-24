@@ -35,9 +35,9 @@ html {
   font-size: 16px;
 }
 body {
+  font-family: "Trebuchet MS";
   color: #424242;
   background: #EEEEEE;
-  font-family: "Trebuchet MS";
 }
 .field {
   margin: .75rem;
@@ -113,34 +113,6 @@ body {
   margin: .75rem;
   color: #B71C1C;
 }
-header {
-  display: flex;
-  align-items: center;
-  padding: 0 .75rem;
-  color: #FFF176;
-  background: #424242;
-  box-shadow: 0 1px 2px #BDBDBD;
-}
-header > div {
-  flex: 1;
-}
-header .logo {
-  font-size: 1.5rem;
-  text-align: left;
-}
-header .mode {
-  display: flex;
-  justify-content: flex-end;
-}
-header .mode > div {
-  padding: .75rem 1rem;
-  cursor: pointer;
-}
-header .mode > div.active {
-  color: #424242;
-  background: #FFF176;
-}
-footer {}
 .modal .wrapper {
   width: 36rem;
 }
@@ -165,11 +137,73 @@ footer {}
 .modal .footer .btn-lg {
   padding: .6rem;
 }
+html, body, div#app, div#app > .wrapper {
+  height: 100%;
+  overflow: hidden;
+}
+div#app > .wrapper {
+  display: flex;
+  flex-direction: column;
+}
+header {
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  padding: 0 .75rem;
+  color: #FFF176;
+  background: #424242;
+  box-shadow: 0 1px 2px #BDBDBD;
+}
+header > div {
+  flex: 1;
+}
+header .logo {
+  font-size: 1.5rem;
+  text-align: left;
+}
+header .mode {
+  display: flex;
+  justify-content: flex-end;
+  user-select: none;
+}
+header .mode > div {
+  padding: .5rem 1rem;
+  border: 1px solid #FFF176;
+  cursor: pointer;
+  transition: .3s;
+}
+header .mode > div:hover {
+  background: #616161;
+}
+header .mode > div.active {
+  color: #424242;
+  background: #FFF176;
+}
+.holder {
+  flex: 1;
+  overflow: auto;
+}
+.holder::-webkit-scrollbar {
+  width: .7rem;
+  height: .7rem;
+  background: #BDBDBD;
+}
+.holder::-webkit-scrollbar-thumb {
+  border: 3px solid #BDBDBD;
+  border-right-width: 2px;
+  border-radius: 4px;
+  background: #616161;
+}
+footer {}
+
+.panel .title {
+  padding: .75rem;
+}
 
 .file-list {
   display: flex;
   flex-wrap: wrap;
-  padding: .75rem;
+  padding: 0 .75rem;
   list-style-type: none;
 }
 
@@ -215,9 +249,6 @@ footer {}
 .modal-file-info .content {
   display: flex;
   flex-direction: row;
-}
-
-.modal-file-info .content > div {
   padding: .75rem;
 }
 
@@ -227,6 +258,12 @@ footer {}
 
 .modal-file-info .content .detail {
   flex: 1;
+  margin-left: .75rem;
+}
+
+.modal-file-info .content .detail * {
+  word-wrap: break-word;
+  word-break: break-all;
 }
 
 .modal-file-info .content .detail a {

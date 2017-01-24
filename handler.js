@@ -10,12 +10,15 @@ const REGEXP_ADMIN = /^\/__/
 const REGEXP_ENTRY = /^\/[^\.]*(.html)?$/
 
 module.exports = function (request, response) {
-  logger.info('=>', request.url)
   var ctx = { request, response }
-
   var url = require('url').parse(request.url, true)
 
   if (REGEXP_ADMIN.test(url.pathname)) {
+    // output debug url info
+    if (process.env.NODE_ENV === 'development') {
+      logger.info('=>', request.url)
+    }
+
     // remove admin prefix
     url.pathname = url.pathname.replace(REGEXP_ADMIN, '')
 
@@ -37,9 +40,13 @@ module.exports = function (request, response) {
     server.serveView.call(ctx, '/start')
   }
   else {
-    server.serveFile.call(
-      ctx, path.join(config.path[config.mode], url.pathname)
-    )
+    logger.info('=>', request.url)
+    if (config.mode === 'mirror') {
+      server.serveFile.call(ctx, path.join(config.path.mirror, url.pathname))
+    }
+    else if (config.mode === 'direct') {
+      server.serveFile.call(ctx, path.join(config.path.cursor, url.pathname))
+    }
   }
 
   // default response

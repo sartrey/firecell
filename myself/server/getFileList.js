@@ -36,10 +36,31 @@ function getMirrorFileList() {
 }
 
 function getDirectFileList(dir) {
-  if (!dir) dir = config.path.direct
+  if (dir === '~') {
+    dir = os.homedir()
+  }
+  else if (dir !== '/') {
+    dir = path.join(config.path.cursor, dir || '')
+  }
+  config.path.cursor = dir
+
   var files = fs.readdirSync(dir)
   .map(file => {
-    return { path: path.join(dir, file), name: file }
+    var fullPath = path.join(dir, file)
+    var stats = fs.statSync(fullPath)
+    var fileMeta = {
+      path: fullPath,
+      name: file,
+      size: stats.size
+    }
+    if (stats.isFile()) {
+      fileMeta.type = 'file'
+    } else if (stats.isDirectory()) {
+      fileMeta.type = 'directory'
+    } else {
+      fileMeta.type = 'other'
+    }
+    return fileMeta
   })
   return assist.getJSON(true, files)
 }

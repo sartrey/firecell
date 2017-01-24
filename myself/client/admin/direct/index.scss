@@ -1,10 +1,17 @@
+@import "../theme.scss";
 @import "../frame.scss";
-@import "../modal.scss";
+
+.panel {
+  .title {
+    padding: .75rem;
+
+  }
+}
 
 .file-list {
   display: flex;
   flex-wrap: wrap;
-  padding: .75rem;
+  padding: 0 .75rem;
   list-style-type: none;
 
   .file-item {
@@ -51,10 +58,7 @@
   .content {
     display: flex;
     flex-direction: row;
-
-    > div {
-      padding: .75rem;
-    }
+    padding: .75rem;
 
     .qrcode {
       flex: 0;
@@ -62,6 +66,12 @@
 
     .detail {
       flex: 1;
+      margin-left: .75rem;
+
+      * {
+        word-wrap: break-word;
+        word-break: break-all;
+      }
 
       a {
         display: block;

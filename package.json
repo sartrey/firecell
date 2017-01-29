@@ -1,6 +1,6 @@
 {
   "name": "firecell",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "local mirror server",
   "main": "index.js",
   "bin": {
@@ -31,7 +31,8 @@
   },
   "homepage": "https://github.com/sartrey/firecell#readme",
   "dependencies": {
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "request": "^2.79.0"
   },
   "optionalDependencies": {
     "chalk": "^1.1.3"

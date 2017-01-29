@@ -46,10 +46,59 @@
 
   > a {
     flex: 1;
+    font-size: 1.3rem;
     margin-right: .75rem;
 
     &:last-of-type {
       margin-right: 0;
     }
+
+    i {
+      margin-right: .5rem;
+      vertical-align: middle;
+    }
   }
+}
+
+.modal-file-info {
+  .content {
+    display: flex;
+    flex-direction: row;
+    padding: .75rem;
+
+    .qrcode {
+      flex: 0;
+    }
+
+    .detail {
+      flex: 1;
+      margin-left: .75rem;
+
+      * {
+        word-wrap: break-word;
+        word-break: break-all;
+      }
+
+      a {
+        display: block;
+        margin-top: 1rem;
+        color: #424242;
+        text-decoration: none;
+        cursor: pointer;
+        transition: .3s;
+
+        &:hover {
+          color: #F9A825;
+        }
+      }
+    }
+  }
+}
+
+.alert-hub {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: auto;
 }

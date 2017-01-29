@@ -18,7 +18,7 @@ export default class extends Component {
   }
 
   accessDir(path) {
-    var apiPath = '/__/api/getFileList'
+    var apiPath = '/__/api/getDirectFiles'
     if (path) apiPath += `?path=${path}`
     fetch(apiPath).then(response => response.json())
     .then(json => {

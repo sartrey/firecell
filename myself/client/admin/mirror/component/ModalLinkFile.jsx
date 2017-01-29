@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import Modal from '../../component/Modal'
 
-export default class ModalFetchFile extends Component {
+export default class ModalLinkFile extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -39,10 +39,10 @@ export default class ModalFetchFile extends Component {
   render() {
     var { error } = this.state
     return (
-      <Modal name='fetch-file' title='fetch file' footer={this.renderFooter()}
+      <Modal name='link-file' title='link file' footer={this.renderFooter()}
         onClose={this.props.onClose}>
         { error && (
-          <div className='alert'>{error}</div>
+          <div className='text-halt'>{error}</div>
         ) }
         <div className='form'>
           <div className='field'>
@@ -57,7 +57,7 @@ export default class ModalFetchFile extends Component {
   }
 }
 
-ModalFetchFile.propTypes = {
+ModalLinkFile.propTypes = {
   onClose: React.PropTypes.func,
   onChange: React.PropTypes.func
 }

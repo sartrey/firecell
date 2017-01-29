@@ -104,3 +104,24 @@ header {
 
 footer {
 }
+
+.alert {
+  position: relative;
+  margin: .5rem;
+  box-shadow: 0 0 3px rgba(0,0,0,0.5);
+
+  > .wrapper {
+    padding: 1rem;
+  }
+
+  > .close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-align: right;
+    display: block;
+    padding: 1rem;
+    line-height: 1rem;
+    cursor: pointer;
+  }
+}

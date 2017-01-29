@@ -12,28 +12,62 @@ process.on('unhandledRejection', function (reason) {
   )
 })
 
+function parseCommand(args, keys) {
+  var command = ''
+  var regexps = keys.map(key => new RegExp(`^-?${key[0]}`, 'i'))
+  args.forEach(arg => {
+    var index = regexps.findIndex(e => e.test(arg))
+    if (index >= 0) {
+      command = keys[index]
+    }
+  })
+  return command
+}
+
 function parseConfig(args, keys) {
   var config = {}
-  var regexp = keys.map(key => new RegExp('^--' + key + '='))
+  var regexps = keys.map(key => new RegExp(`^--${key}=`))
   args.forEach(arg => {
-    var index = regexp.findIndex(e => e.test(arg))
+    var index = regexps.findIndex(e => e.test(arg))
     if (index >= 0) {
-      var value = arg.replace(regexp[index], '')
+      var value = arg.replace(regexps[index], '')
       config[keys[index]] = value
     }
   })
   return config
 }
 
+function showHelp() {
+  console.log('\nfirecell [command] [options]')
+  console.log('\nexample\n')
+  console.log('  firecell -h')
+  console.log('  firecell -d')
+  console.log('  firecell --mode=direct --port=8080 --path=~')
+  console.log('  firecell --mode=mirror')
+  console.log('\ndefault\n')
+  console.log('  mirror mode at 9999\n')
+}
 
 const cwd = process.cwd()
-const cfg = parseConfig(process.argv, ['port', 'path'])
-if (cfg.path === '~') {
+const cmd = parseCommand(process.argv, ['help', 'direct'])
+const cfg = parseConfig(process.argv, ['port', 'mode', 'path'])
+
+if (cmd === 'help') {
+  return showHelp()
+}
+
+if (cmd === 'direct') {
+  cfg.mode = 'direct'
+}
+if (!cfg.path) {
+  cfg.path = cwd
+}
+else if (cfg.path === '~') {
   cfg.path = os.homedir()
 }
 
 require('../')({
-  mode: cfg.path ? 'direct' : 'mirror',
+  mode: cfg.mode || 'mirror',
   port: cfg.port,
   path: {
     direct: cfg.path,

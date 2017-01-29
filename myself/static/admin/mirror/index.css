@@ -109,9 +109,24 @@ body {
 .modal .wrapper .footer {
   background: #EEEEEE;
 }
-.alert {
+.text-halt {
   margin: .75rem;
   color: #B71C1C;
+}
+.alert {
+  color: #fff;
+}
+.alert .close {
+  color: #fff;
+}
+.alert-halt {
+  background: #E53935;
+}
+.alert-warn {
+  background: #FFB300;
+}
+.alert-done {
+  background: #43A047;
 }
 .modal .wrapper {
   width: 36rem;
@@ -195,6 +210,24 @@ header .mode > div.active {
   background: #616161;
 }
 footer {}
+.alert {
+  position: relative;
+  margin: .5rem;
+  box-shadow: 0 0 3px rgba(0,0,0,0.5);
+}
+.alert > .wrapper {
+  padding: 1rem;
+}
+.alert > .close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  text-align: right;
+  display: block;
+  padding: 1rem;
+  line-height: 1rem;
+  cursor: pointer;
+}
 
 .file-list .file-item {
   display: flex;
@@ -240,9 +273,56 @@ footer {}
 
 .file-more > a {
   flex: 1;
-  margin-right: .75rem
+  font-size: 1.3rem;
+  margin-right: .75rem;
+}
+
+.file-more > a i {
+  margin-right: .5rem;
+  vertical-align: middle;
 }
 
 .file-more > a:last-of-type {
   margin-right: 0;
+}
+
+.modal-file-info .content {
+  display: flex;
+  flex-direction: row;
+  padding: .75rem;
+}
+
+.modal-file-info .content .qrcode {
+  flex: 0;
+}
+
+.modal-file-info .content .detail {
+  flex: 1;
+  margin-left: .75rem;
+}
+
+.modal-file-info .content .detail * {
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.modal-file-info .content .detail a {
+  display: block;
+  margin-top: 1rem;
+  color: #424242;
+  text-decoration: none;
+  cursor: pointer;
+  transition: .3s
+}
+
+.modal-file-info .content .detail a:hover {
+  color: #F9A825;
+}
+
+.alert-hub {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: auto;
 }

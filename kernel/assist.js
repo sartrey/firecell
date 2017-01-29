@@ -10,9 +10,9 @@ module.exports = {
   tryParseJSON,
   bindReadOnly,
   chainPromise,
-  existsPath,
   readFile,
   writeFile,
+  existSync,
   mkdirSync,
   loadModules,
   safeExecute
@@ -105,7 +105,7 @@ function chainPromise(promises) {
  * @param  {String} p
  * @return {Boolean}
  */
-function existsPath(p) {
+function existSync(p) {
   try {
     fs.accessSync(p, fs.F_OK)
     return true
@@ -124,7 +124,7 @@ function mkdirSync(dir) {
   var pFull = '/'
   for (var i = 0; i < parts.length; i ++) {
     pFull = path.join(pFull, parts[i])
-    if (!existsPath(pFull)) {
+    if (!existSync(pFull)) {
       fs.mkdirSync(pFull)
     }
   }
@@ -220,7 +220,7 @@ function safeExecute(command, options) {
     }
 
     if (options) {
-      if (options.cwd && !existsPath(options.cwd)) {
+      if (options.cwd && !existSync(options.cwd)) {
         return reject(new Error('cwd not found'))
       }
     }

@@ -131,7 +131,27 @@ body {
   }
 }
 
-.alert {
+.text-halt {
   margin: .75rem;
   color: #B71C1C;
+}
+
+.alert {
+  color: #fff;
+
+  .close {
+    color: #fff;
+  }
+}
+
+.alert-halt {
+  background: #E53935;
+}
+
+.alert-warn {
+  background: #FFB300;
+}
+
+.alert-done {
+  background: #43A047;
 }

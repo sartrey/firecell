@@ -42,10 +42,14 @@ module.exports = function (request, response) {
   else {
     logger.info('=>', request.url)
     if (config.mode === 'mirror') {
-      server.serveFile.call(ctx, path.join(config.path.mirror, url.pathname))
+      server.serveFile.call(
+        ctx, path.join(config.path.mirror, 'static', url.pathname)
+      )
     }
     else if (config.mode === 'direct') {
-      server.serveFile.call(ctx, path.join(config.path.cursor, url.pathname))
+      server.serveFile.call(
+        ctx, path.join(config.path.cursor, url.pathname)
+      )
     }
   }
 

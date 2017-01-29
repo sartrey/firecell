@@ -26,12 +26,21 @@ function serveData(exec, query) {
   try {
     var action = require('../myself/server' + exec)
     var result = action.call(null, ctx, query)
-    ctx.response.write(JSON.stringify(result))
+    if (result instanceof Promise) {
+      ctx.response.async = true
+      result.then(json => {
+        ctx.response.write(JSON.stringify(json))
+        ctx.response.end()
+      })
+    } else {
+      ctx.response.write(JSON.stringify(result))
+      ctx.response.end()
+    }
   }
   catch (error) {
     ctx.response.write(JSON.stringify({ state: false, error: error.message }))
+    ctx.response.end()
   }
-  ctx.response.end()
 }
 
 /**
@@ -72,7 +81,7 @@ function serveFile(file) {
 function serveView(view) {
   var ctx = this
   var viewDir = path.join(__dirname, '../myself/client', view)
-  if (assist.existsPath(viewDir)) {
+  if (assist.existSync(viewDir)) {
     var headers = {}
     headers['Content-Type'] = 'text/html'
     ctx.response.writeHead(200, headers)

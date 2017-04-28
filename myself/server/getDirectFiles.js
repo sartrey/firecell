@@ -29,5 +29,7 @@ module.exports = function (ctx, query) {
     }
     return fileMeta
   })
-  return assist.getJSON(true, files)
+  var result = assist.getJSON(true, files)
+  result.cwdir = target
+  return result
 }

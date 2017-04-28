@@ -229,6 +229,12 @@ footer {}
   cursor: pointer;
 }
 
+.cwdir {
+  font-size: 1.2rem;
+  padding: .75rem;
+  font-weight: bold;
+}
+
 .panel .title {
   padding: .75rem;
 }

@@ -43,7 +43,7 @@ function startFirecell(conf) {
     socket.end('HTTP/1.1 400 Bad Request\r\n\r\n')
   })
   httpServer.on('timeout', function (error) {
-    console.log(error.stack)
+    logger.halt('http timeout')
   })
   httpServer.config = config
   return httpServer

@@ -7,16 +7,21 @@ const logger = require('./kernel/logger.js')
 const server = require('./kernel/server.js')
 
 const REGEXP_ADMIN = /^\/__/
-const REGEXP_ENTRY = /^\/[^\.]*(.html)?$/
+const REGEXP_ENTRY = /^\/$/
 
 module.exports = function (request, response) {
   var ctx = { request, response }
   var url = require('url').parse(request.url, true)
+  if (url.query.debug) {
+    Object.keys(request.headers).forEach(key => {
+      logger.warn(`[${key}]`, request.headers[key])
+    })
+  }
 
   if (REGEXP_ADMIN.test(url.pathname)) {
     // output debug url info
     if (process.env.NODE_ENV === 'development') {
-      logger.info('=>', request.url)
+      logger.done('=>', request.url)
     }
 
     // remove admin prefix
@@ -40,7 +45,7 @@ module.exports = function (request, response) {
     server.serveView.call(ctx, '/start')
   }
   else {
-    logger.info('=>', request.url)
+    logger.done('=>', request.url)
     if (config.mode === 'mirror') {
       server.serveFile.call(
         ctx, path.join(config.path.mirror, 'static', url.pathname)

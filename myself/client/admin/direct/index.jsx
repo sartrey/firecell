@@ -9,7 +9,8 @@ export default class extends Component {
     super(props)
     this.state = {
       files: [],
-      modal: null
+      modal: null,
+      cwdir: ''
     }
   }
 
@@ -23,7 +24,10 @@ export default class extends Component {
     fetch(apiPath).then(response => response.json())
     .then(json => {
       if (json.state) {
-        this.setState({ files: json.model })
+        this.setState({
+          files: json.model,
+          cwdir: json.cwdir
+        })
       }
     })
   }
@@ -54,9 +58,13 @@ export default class extends Component {
       <div>
         {this.renderBlock(
           'quick',
-          ['..', '/', '~'].map((path, i) => (
+          [
+            { text: '.. <parent>', path: '..' },
+            { text: '/ <root>', path: '/' },
+            { text: '~ <home>', path: '~' }
+          ].map((item, i) => (
             <li className='file-item' key={i}>
-              <a onClick={e => this.accessDir(path)}>{path}</a>
+              <a onClick={e => this.accessDir(item.path)}>{item.text}</a>
             </li>
           ))
         )}
@@ -92,9 +100,12 @@ export default class extends Component {
   }
 
   render() {
-    var { modal, files } = this.state
+    var { cwdir } = this.state
     return (
       <Layout>
+        <p className='cwdir'>
+          current directory = {cwdir}
+        </p>
         {this.renderFiles()}
       </Layout>
     )

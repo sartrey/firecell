@@ -44,21 +44,19 @@ function showHelp() {
   console.log('  firecell -d')
   console.log('  firecell --mode=direct --port=8080 --path=~')
   console.log('  firecell --mode=mirror')
+  console.log('  firecell help')
   console.log('\ndefault\n')
   console.log('  mirror mode at 9999\n')
 }
 
 const cwd = process.cwd()
-const cmd = parseCommand(process.argv, ['help', 'direct'])
+const cmd = parseCommand(process.argv, ['help'])
 const cfg = parseConfig(process.argv, ['port', 'mode', 'path'])
 
 if (cmd === 'help') {
   return showHelp()
 }
 
-if (cmd === 'direct') {
-  cfg.mode = 'direct'
-}
 if (!cfg.path) {
   cfg.path = cwd
 }

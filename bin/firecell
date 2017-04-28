@@ -50,11 +50,14 @@ function showHelp() {
 }
 
 const cwd = process.cwd()
-const cmd = parseCommand(process.argv, ['help'])
+const cmd = parseCommand(process.argv, ['help', 'direct'])
 const cfg = parseConfig(process.argv, ['port', 'mode', 'path'])
 
 if (cmd === 'help') {
   return showHelp()
+}
+if (cmd === 'direct') {
+  cfg.mode = 'direct'
 }
 
 if (!cfg.path) {

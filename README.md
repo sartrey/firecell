@@ -1,6 +1,6 @@
 # firecell
 
-local mirror & static server
+local static server with mirror
 
 ## Usage
 
@@ -11,11 +11,17 @@ local mirror & static server
 ### start server anywhere
 
 ```sh
-# serve ~/.firecell at 9999
+# serve ~/.firecell at 9999 (mirror mode)
 firecell
 
-# serve /static at 8080
-firecell --port=8080 --path="/static"
+# serve CWD at 8080 (direct mode)
+firecell --port=8080 --mode=direct
+
+# server CWD at 9999 (direct mode)
+firecell -d
+
+# show help
+firecell -h
 ```
 
 ### access homepage

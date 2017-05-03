@@ -53,7 +53,7 @@ module.exports = function (request, response) {
     }
     else if (config.mode === 'direct') {
       server.serveFile.call(
-        ctx, path.join(config.path.cursor, url.pathname)
+        ctx, path.join(config.path.cursor, decodeURI(url.pathname))
       )
     }
   }

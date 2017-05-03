@@ -8,7 +8,9 @@ const config = require('../../kernel/config.js')
 module.exports = function (ctx, query) {
   var target = query.path || ''
   if (target === '~') target = os.homedir()
-  if (target !== '/') target = path.join(config.path.cursor, target)
+  else if (target === '/') target = '/'
+  else if (target === '..') target = path.join(config.path.cursor, '..')
+  else target = path.join(config.path.cursor, target)
   config.path.cursor = target
 
   var files = fs.readdirSync(target)

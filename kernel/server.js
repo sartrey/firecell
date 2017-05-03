@@ -59,10 +59,12 @@ function serveFile(file) {
     return ctx.response.end('not found')
   }
 
-  var headers = {}
-  headers['Content-Type'] = getFileMIME(file)
-  headers['Content-Length'] = stat.size
-  headers['Access-Control-Allow-Origin'] = '*'
+  var headers = {
+    'Content-Type': getFileMIME(file),
+    'Content-Length': stat.size,
+    'Access-Control-Allow-Origin': '*',
+    'Connection': 'close'
+  }
   ctx.response.writeHead(200, headers)
 
   var stream = fs.createReadStream(file)

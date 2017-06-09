@@ -245,6 +245,10 @@ footer {}
   padding: .5rem;
 }
 
+.file-list .file-item .record .item-path {
+  margin-right: 2rem;
+}
+
 .file-list .file-item .action {
   flex: 8rem 0;
   text-align: right;

@@ -59,8 +59,33 @@ export default class extends Component {
     })
   }
 
+  fetchFiles() {
+    var { files } = this.state
+    files.forEach(file => {
+      fetch(`/__/api/fetchFile?path=${file.path}&link=${file.link}`)
+      .then(response => response.json())
+      .then(json => {
+        if (json.state) {
+          this.getFiles([file.path])
+          this.pushAlert('done', `file <${file.path}> downloaded`)
+        } else {
+          this.pushAlert('halt', `failed to download file <${file.path}>`)
+        }
+      })
+    })
+  }
+
   removeFile(item) {
-    this.pushAlert('warn', 'working...')
+    fetch(`/__/api/removeFile?path=${item.path}`)
+    .then(response => response.json())
+    .then(json => {
+      if (json.state) {
+        // this.getFiles([item.path])
+        this.pushAlert('done', `file <${item.path}> removed`)
+      } else {
+        this.pushAlert('halt', `failed to download file <${item.path}>`)
+      }
+    })
   }
 
   openModal(name, data) {
@@ -91,7 +116,7 @@ export default class extends Component {
         <a className='btn btn-lg' onClick={e => this.openModal('link-file')}>
           <i className='md-icons'>insert_link</i>link file
         </a>
-        <a className='btn btn-lg' onClick={e => this.openModal('sync-list')}>
+        <a className='btn btn-lg' onClick={e => this.fetchFiles()}>
           <i className='md-icons'>sync</i>sync list
         </a>
         <a className='btn btn-lg' onClick={e => this.openModal('scan-path')}>
@@ -109,7 +134,8 @@ export default class extends Component {
           {files.map((file, i) => (
             <li className='file-item' key={i}>
               <div className='record'>
-                {file.path} | {file.link}
+                <span className='item-path'>{file.path}</span>
+                <span className='item-link'>{file.link}</span>
               </div>
               <div className='action'>
                 <a className='btn' onClick={e => this.openModal('file-info', file)}>

@@ -20,6 +20,10 @@
     .record {
       flex: 1;
       padding: .5rem;
+
+      .item-path {
+        margin-right: 2rem;
+      }
     }
 
     .action {

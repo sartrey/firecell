@@ -119,9 +119,6 @@ export default class extends Component {
         <a className='btn btn-lg' onClick={e => this.fetchFiles()}>
           <i className='md-icons'>sync</i>sync list
         </a>
-        <a className='btn btn-lg' onClick={e => this.openModal('scan-path')}>
-          <i className='md-icons'>search</i>scan path
-        </a>
       </div>
     )
   }
@@ -130,6 +127,7 @@ export default class extends Component {
     var { modal, files } = this.state
     return (
       <div>
+        <p className='info'>{files.length} file(s)</p>
         <ul className='file-list'>
           {files.map((file, i) => (
             <li className='file-item' key={i}>

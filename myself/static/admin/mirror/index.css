@@ -168,6 +168,7 @@ header {
   color: #FFF176;
   background: #424242;
   box-shadow: 0 1px 2px #BDBDBD;
+  user-select: none;
 }
 header > div {
   flex: 1;
@@ -229,9 +230,13 @@ footer {}
   cursor: pointer;
 }
 
+.info {
+  margin: .5rem .75rem;
+}
+
 .file-list .file-item {
   display: flex;
-  margin: .75rem;
+  margin: .5rem .75rem;
   color: #424242;
   background: #fff;
   border-radius: 1px;
@@ -246,7 +251,11 @@ footer {}
 }
 
 .file-list .file-item .record .item-path {
-  margin-right: 2rem;
+  margin-right: 3rem;
+}
+
+.file-list .file-item .record .item-link {
+  color: #aaa;
 }
 
 .file-list .file-item .action {
@@ -290,6 +299,23 @@ footer {}
   margin-right: 0;
 }
 
+.modal-link-file input {
+  font-size: 1.1rem;
+  width: calc(100% - 1rem - 4px);
+  padding: .5rem;
+  border: 1px solid #ddd;
+  transition: .2s
+}
+
+.modal-link-file input:hover {
+  border-color: #666;
+}
+
+.modal-link-file input:focus {
+  outline: none;
+  border-color: #333;
+}
+
 .modal-file-info .content {
   display: flex;
   flex-direction: row;
@@ -302,6 +328,8 @@ footer {}
 
 .modal-file-info .content .detail {
   flex: 1;
+  display: flex;
+  flex-direction: column;
   margin-left: .75rem;
 }
 
@@ -310,9 +338,27 @@ footer {}
   word-break: break-all;
 }
 
+.modal-file-info .content .detail .detail-action {
+  flex: 1;
+}
+
+.modal-file-info .content .detail .detail-action p {
+  margin: .75rem 0;
+}
+
+.modal-file-info .content .detail .detail-action p i {
+  font-size: .8rem;
+  color: #aaa;
+  margin-bottom: .5rem;
+}
+
+.modal-file-info .content .detail .detail-footer {
+  color: #888;
+  text-align: right;
+}
+
 .modal-file-info .content .detail a {
   display: block;
-  margin-top: 1rem;
   color: #424242;
   text-decoration: none;
   cursor: pointer;

@@ -1,15 +1,40 @@
 @import "../theme.scss";
 @import "../frame.scss";
 
-.cwdir {
+.cwdir, .kword {
   font-size: 1.2rem;
-  padding: .75rem;
+  padding: .75rem .75rem 0;
+}
+
+.cwdir {
   font-weight: bold;
+}
+
+.kword {
+  input {
+    font-size: 1.1rem;
+    width: calc(100% - 1rem - 4px);
+    padding: .5rem;
+    border: 2px solid #ddd;
+    transition: .2s;
+    
+    &:hover {
+      border-color: #666;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: #333;
+    }
+  }
 }
 
 .panel {
   .title {
+    font-weight: bold;
     padding: .75rem;
+    color: #666;
+    text-shadow: 1px 1px 1px #fff;
   }
 }
 
@@ -72,6 +97,8 @@
 
     .detail {
       flex: 1;
+      display: flex;
+      flex-direction: column;
       margin-left: .75rem;
 
       * {
@@ -79,9 +106,27 @@
         word-break: break-all;
       }
 
+      .detail-action {
+        flex: 1;
+
+        p {
+          i {
+            font-size: .8rem;
+            color: #aaa;
+            margin-bottom: .5rem;
+          }
+
+          margin: .75rem 0;
+        }
+      }
+
+      .detail-footer {
+        color: #888;
+        text-align: right;
+      }
+
       a {
         display: block;
-        margin-top: 1rem;
         color: #424242;
         text-decoration: none;
         cursor: pointer;

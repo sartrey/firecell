@@ -21,7 +21,9 @@ function openStart(config) {
 function startFirecell(conf) {
   // create firecell
   var server = createFirecell(conf)
-
+  var version = require('./package.json').version
+  logger.info(`version ${version}`)
+  
   // load latest config
   var config = require('./kernel/config.js')
 

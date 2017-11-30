@@ -8,6 +8,7 @@ export default class extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      kword: '',
       files: [],
       modal: null,
       cwdir: ''
@@ -32,6 +33,10 @@ export default class extends Component {
     })
   }
 
+  changeKword(e) {
+    this.setState({ kword: e.target.value })
+  }
+
   openModal(name, data) {
     this.setState({ modal: { name, data } })
   }
@@ -50,7 +55,10 @@ export default class extends Component {
   }
 
   renderFiles() {
-    var { modal, files } = this.state
+    var { modal, kword, files } = this.state
+    if (kword) {
+      files = files.filter(file => file.name.indexOf(kword) >= 0)
+    }
     var fileItems = files.filter(file => file.type === 'file')
     var directoryItems = files.filter(file => file.type === 'directory')
     var otherItems = files.filter(file => file.type === 'other')
@@ -103,8 +111,10 @@ export default class extends Component {
     var { cwdir } = this.state
     return (
       <Layout>
-        <p className='cwdir'>
-          current directory = {cwdir}
+        <p className='cwdir'>current directory = {cwdir}</p>
+        <p className='kword'>
+          <input type='text' placeholder='filter items ...' 
+            onChange={e => this.changeKword(e)} />
         </p>
         {this.renderFiles()}
       </Layout>

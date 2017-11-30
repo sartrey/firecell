@@ -1,10 +1,14 @@
 @import "../theme.scss";
 @import "../frame.scss";
 
+.info {
+  margin: .5rem .75rem;
+}
+
 .file-list {
   .file-item {
     display: flex;
-    margin: .75rem;
+    margin: .5rem .75rem;
     color: #424242;
     background: #fff;
     border-radius: 1px;
@@ -22,7 +26,11 @@
       padding: .5rem;
 
       .item-path {
-        margin-right: 2rem;
+        margin-right: 3rem;
+      }
+
+      .item-link {
+        color: #aaa;
       }
     }
 
@@ -64,6 +72,25 @@
   }
 }
 
+.modal-link-file {
+  input {
+    font-size: 1.1rem;
+    width: calc(100% - 1rem - 4px);
+    padding: .5rem;
+    border: 1px solid #ddd;
+    transition: .2s;
+    
+    &:hover {
+      border-color: #666;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: #333;
+    }
+  }
+}
+
 .modal-file-info {
   .content {
     display: flex;
@@ -76,6 +103,8 @@
 
     .detail {
       flex: 1;
+      display: flex;
+      flex-direction: column;
       margin-left: .75rem;
 
       * {
@@ -83,9 +112,27 @@
         word-break: break-all;
       }
 
+      .detail-action {
+        flex: 1;
+
+        p {
+          i {
+            font-size: .8rem;
+            color: #aaa;
+            margin-bottom: .5rem;
+          }
+
+          margin: .75rem 0;
+        }
+      }
+
+      .detail-footer {
+        color: #888;
+        text-align: right;
+      }
+
       a {
         display: block;
-        margin-top: 1rem;
         color: #424242;
         text-decoration: none;
         cursor: pointer;

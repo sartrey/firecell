@@ -1,7 +1,6 @@
 'use strict'
 
 const path = require('path')
-
 const config = require('./kernel/config.js')
 const logger = require('./kernel/logger.js')
 const server = require('./kernel/server.js')

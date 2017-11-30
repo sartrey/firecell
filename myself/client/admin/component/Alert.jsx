@@ -1,10 +1,20 @@
 import React, {Component} from 'react'
 
 export default class Alert extends Component {
+  constructor() {
+    super()
+  }
+
   closeAlert() {
     if (this.props.onClose) {
       this.props.onClose()
     }
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.closeAlert()
+    }, 3000)
   }
 
   render() {

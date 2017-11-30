@@ -168,6 +168,7 @@ header {
   color: #FFF176;
   background: #424242;
   box-shadow: 0 1px 2px #BDBDBD;
+  user-select: none;
 }
 header > div {
   flex: 1;
@@ -229,14 +230,37 @@ footer {}
   cursor: pointer;
 }
 
-.cwdir {
+.cwdir, .kword {
   font-size: 1.2rem;
-  padding: .75rem;
+  padding: .75rem .75rem 0;
+}
+
+.cwdir {
   font-weight: bold;
 }
 
+.kword input {
+  font-size: 1.1rem;
+  width: calc(100% - 1rem - 4px);
+  padding: .5rem;
+  border: 2px solid #ddd;
+  transition: .2s
+}
+
+.kword input:hover {
+  border-color: #666;
+}
+
+.kword input:focus {
+  outline: none;
+  border-color: #333;
+}
+
 .panel .title {
+  font-weight: bold;
   padding: .75rem;
+  color: #666;
+  text-shadow: 1px 1px 1px #fff;
 }
 
 .file-list {
@@ -298,6 +322,8 @@ footer {}
 
 .modal-file-info .content .detail {
   flex: 1;
+  display: flex;
+  flex-direction: column;
   margin-left: .75rem;
 }
 
@@ -306,9 +332,27 @@ footer {}
   word-break: break-all;
 }
 
+.modal-file-info .content .detail .detail-action {
+  flex: 1;
+}
+
+.modal-file-info .content .detail .detail-action p {
+  margin: .75rem 0;
+}
+
+.modal-file-info .content .detail .detail-action p i {
+  font-size: .8rem;
+  color: #aaa;
+  margin-bottom: .5rem;
+}
+
+.modal-file-info .content .detail .detail-footer {
+  color: #888;
+  text-align: right;
+}
+
 .modal-file-info .content .detail a {
   display: block;
-  margin-top: 1rem;
   color: #424242;
   text-decoration: none;
   cursor: pointer;

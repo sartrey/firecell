@@ -3,14 +3,14 @@ import QRCode from 'qrcode.react'
 
 import Modal from '../../component/Modal'
 
-function autoUnit(size, fixed) {
+function autoUnit(size) {
   var units = ['B', 'KB', 'MB', 'GB', 'TB']
   var depth = 0
   while (size > 1024) {
     size = size / 1024
     depth ++
   }
-  return size.toFixed(fixed) + units[depth]
+  return { size, unit: units[depth] }
 }
 
 export default class ModalFileInfo extends Component {
@@ -30,16 +30,29 @@ export default class ModalFileInfo extends Component {
     var { file } = this.props
     var config = window.epii.model.config
     var weburl = `http://${config.host.ipv4[0]}:${config.port}/${file.name}`
+    var sizeof = autoUnit(file.size)
     return (
       <Modal name='file-info' title='file info' onClose={this.props.onClose}>
         <div className='qrcode'>
           <QRCode value={weburl} size={180} level='M' />
         </div>
         <div className='detail'>
-          <p>{file.name}</p>
-          <p>{autoUnit(file.size, 2)}</p>
-          <a onClick={e => this.openShell(file)}>{file.path}</a>
-          <a href={weburl} target='_blank'>{weburl}</a>
+          <div className='detail-header'>
+            <p>{file.name}</p>
+          </div>
+          <div className='detail-action'>
+            <p>
+              <i>local</i><br />
+              <a onClick={e => this.openShell(file)}>{file.path}</a>
+            </p>
+            <p>
+              <i>remote</i><br />
+              <a href={weburl} target='_blank'>{weburl}</a>
+            </p>
+          </div>
+          <div className='detail-footer'>
+            <p>{sizeof.size.toFixed(2) + ' ' + sizeof.unit}</p>
+          </div>
         </div>
       </Modal>
     )

@@ -16,10 +16,10 @@ export default class ModalLinkFile extends Component {
     }
     this.setState({ error: null })
     if (!output.path) {
-      return this.setState({ error: 'path cannot be empty'})
+      return this.setState({ error: 'local path cannot be empty'})
     }
     if (!output.link) {
-      return this.setState({ error: 'link cannot be empty' })
+      return this.setState({ error: 'remote source cannot be empty' })
     }
     if (this.props.onChange) {
       this.props.onChange(output)
@@ -46,10 +46,10 @@ export default class ModalLinkFile extends Component {
         ) }
         <div className='form'>
           <div className='field'>
-            <input type='text' ref='path' placeholder='target path' />
+            <input type='text' ref='path' placeholder='local path' />
           </div>
           <div className='field'>
-            <input type='text' ref='link' placeholder='source link' />
+            <input type='text' ref='link' placeholder='remote source' />
           </div>
         </div>
       </Modal>

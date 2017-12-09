@@ -1,0 +1,16 @@
+  
+  firecell [command] [options]
+  
+  example
+  
+    firecell -d
+    firecell -d --fork
+    firecell --mode=direct --port=8080 --path=~
+    firecell --mode=mirror
+    firecell stop
+    firecell help
+
+  default
+  
+    mirror mode at 9999
+  

@@ -2,10 +2,9 @@
 
 const fs = require('fs')
 const path = require('path')
-
+const mime = require('mime-types')
 const assist = require('./assist.js')
 const logger = require('./logger.js')
-const mimes = require('./_mimes.json')
 
 const ENTRY_HTML = fs.readFileSync(
   path.join(__dirname, '../myself/entry.html'), 'utf8'
@@ -14,95 +13,87 @@ const ENTRY_HTML = fs.readFileSync(
 module.exports = {
   serveData,
   serveFile,
-  serveView,
-  getFileMIME
+  serveView
 }
 
-function serveData(exec, query) {
-  var ctx = this
+/**
+ * serve data
+ *
+ * @param {Object} context
+ * @param {String} route
+ * @param {Object} query
+ */
+function serveData(context, route, query) {
   var headers = {}
   headers['Content-Type'] = 'application/json'
-  ctx.response.writeHead(200, headers)
+  context.response.writeHead(200, headers)
   try {
-    var action = require('../myself/server' + exec)
-    var result = action.call(null, ctx, query)
+    var action = require('../myself/server' + route)
+    var result = action.call(null, context, query)
     if (result instanceof Promise) {
-      ctx.response.async = true
+      context.response.async = true
       result.then(json => {
-        ctx.response.write(JSON.stringify(json))
-        ctx.response.end()
+        context.response.write(JSON.stringify(json))
+        context.response.end()
       })
     } else {
-      ctx.response.write(JSON.stringify(result))
-      ctx.response.end()
+      context.response.write(JSON.stringify(result))
+      context.response.end()
     }
   }
   catch (error) {
-    ctx.response.write(JSON.stringify({ state: false, error: error.message }))
-    ctx.response.end()
+    context.response.write(JSON.stringify(assist.getJSON(false, error.message)))
+    context.response.end()
   }
 }
 
 /**
  * serve file
  *
- * @param  {String} file
+ * @param {Object} context
+ * @param {String} file
  */
-function serveFile(file) {
-  var ctx = this
-  ctx.response.async = true
+function serveFile(context, file) {
+  context.response.async = true
 
   try {
     var stat = fs.statSync(file)
   } catch (error) {
-    ctx.response.writeHead(404)
-    return ctx.response.end('not found')
+    context.response.writeHead(404)
+    return context.response.end('not found')
   }
 
   var headers = {
-    'Content-Type': getFileMIME(file),
+    'Connection': 'close',
+    'Content-Type': mime.contentType(path.extname(file)) 
+      || 'application/octet-stream',
     'Content-Length': stat.size,
     'Access-Control-Allow-Origin': '*',
-    'Connection': 'close'
+    'Timing-Allow-Origin': '*'
   }
-  ctx.response.writeHead(200, headers)
+  context.response.writeHead(200, headers)
 
   var stream = fs.createReadStream(file)
-  stream.pipe(ctx.response)
+  stream.pipe(context.response)
   .on('error', function (error) {
     logger.halt(error.message)
-    ctx.response.end()
+    context.response.end()
   })
 }
 
 /**
  * serve view
  *
- * @param  {String} view
+ * @param {Object} context
+ * @param {String} view
  */
-function serveView(view) {
-  var ctx = this
+function serveView(context, view) {
   var viewDir = path.join(__dirname, '../myself/client', view)
-  if (assist.existSync(viewDir)) {
-    var headers = {}
-    headers['Content-Type'] = 'text/html'
-    ctx.response.writeHead(200, headers)
-    ctx.response.write(
-      ENTRY_HTML.replace(/\$\{key\}/g, path.join(view, 'index'))
-    )
-    ctx.response.end()
-  }
-}
-
-/**
- * get MIME by file name
- *
- * @param  {String} file - file name
- * @return {String} MIME
- */
-function getFileMIME(file) {
-  if (!file) return 'text/plain'
-  var ext = path.extname(file)
-  if (ext) ext = ext.toLowerCase().substring(1)
-  return mimes[ext] || mimes.txt
+  var headers = {}
+  headers['Content-Type'] = 'text/html; charset=utf-8'
+  context.response.writeHead(200, headers)
+  context.response.write(
+    ENTRY_HTML.replace(/\/\$\{key\}/g, path.join(view, 'index'))
+  )
+  context.response.end()
 }

@@ -27,33 +27,25 @@ module.exports = function (request, response) {
     url.pathname = url.pathname.replace(REGEXP_ADMIN, '')
 
     if (/^\/api/.test(url.pathname)) {
-      server.serveData.call(
-        ctx, url.pathname.replace(/^\/api/, ''), url.query
-      )
+      server.serveData(ctx, url.pathname.replace(/^\/api/, ''), url.query)
     }
     else if (REGEXP_ENTRY.test(url.pathname)) {
-      server.serveView.call(ctx, path.join('/admin', config.mode))
+      server.serveView(ctx, path.join('/admin', config.mode))
     }
     else {
-      server.serveFile.call(
-        ctx, path.join(__dirname, 'myself/static', url.pathname)
-      )
+      server.serveFile(ctx, path.join(__dirname, 'myself/static', url.pathname))
     }
   }
   else if (REGEXP_ENTRY.test(url.pathname)) {
-    server.serveView.call(ctx, '/start')
+    server.serveView(ctx, '/start')
   }
   else {
     logger.done('=>', request.url)
     if (config.mode === 'mirror') {
-      server.serveFile.call(
-        ctx, path.join(config.path.mirror, 'static', url.pathname)
-      )
+      server.serveFile(ctx, path.join(config.path.mirror, 'static', url.pathname))
     }
     else if (config.mode === 'direct') {
-      server.serveFile.call(
-        ctx, path.join(config.path.cursor, decodeURI(url.pathname))
-      )
+      server.serveFile(ctx, path.join(config.path.cursor, decodeURI(url.pathname)))
     }
   }
 

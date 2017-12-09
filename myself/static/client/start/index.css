@@ -38,14 +38,14 @@ a:hover {
 }
 
 .header a {
-  display: block;
-}
+    display: block;
+  }
 
 .header .myself {
-  font-size: 8vw;
-}
+    font-size: 8vw;
+  }
 
 .header .github {
-  font-size: 2vw;
-  margin: 1em;
-}
+    font-size: 2vw;
+    margin: 1em;
+  }

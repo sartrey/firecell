@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import Modal from '../../component/Modal'
 
 export default class ModalLinkFile extends Component {
@@ -58,6 +59,6 @@ export default class ModalLinkFile extends Component {
 }
 
 ModalLinkFile.propTypes = {
-  onClose: React.PropTypes.func,
-  onChange: React.PropTypes.func
+  onClose: PropTypes.func,
+  onChange: PropTypes.func
 }

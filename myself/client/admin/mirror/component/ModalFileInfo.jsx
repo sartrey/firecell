@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import QRCode from 'qrcode.react'
 import Modal from '../../component/Modal'
 
@@ -59,6 +60,6 @@ export default class ModalFileInfo extends Component {
 }
 
 ModalFileInfo.propTypes = {
-  file: React.PropTypes.object,
-  onClose: React.PropTypes.func
+  file: PropTypes.object,
+  onClose: PropTypes.func
 }

@@ -20,6 +20,12 @@ firecell --port=8080 --mode=direct
 # server CWD at 9999 (direct mode)
 firecell -d
 
+# fork server (direct mode)
+firecell -d --fork
+
+# stop server
+firecell stop
+
 # show help
 firecell -h
 ```

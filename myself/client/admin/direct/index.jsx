@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import 'whatwg-fetch'
-
 import Layout from '../component/frame/Layout'
 import ModalFileInfo from './component/ModalFileInfo'
 

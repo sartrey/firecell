@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 
 export default class Alert extends Component {
   constructor() {
@@ -33,6 +34,6 @@ export default class Alert extends Component {
 }
 
 Alert.propTypes = {
-  theme: React.PropTypes.string.isRequired,
-  onClose: React.PropTypes.func
+  theme: PropTypes.string.isRequired,
+  onClose: PropTypes.func
 }

@@ -1,0 +1,1 @@
+;(function () {var root = document.getElementById('app');if (!root) throw new Error('undefined epii root');var view = window.epii.entry;if (!view) throw new Error('undefined epii view');ReactDOM.render(React.createElement(view), root);}());

@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 
 export default class Modal extends Component {
   closeModal() {
@@ -35,8 +36,8 @@ export default class Modal extends Component {
 }
 
 Modal.propTypes = {
-  name: React.PropTypes.string.isRequired,
-  title: React.PropTypes.string.isRequired,
-  footer: React.PropTypes.any,
-  onClose: React.PropTypes.func
+  name: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  footer: PropTypes.any,
+  onClose: PropTypes.func
 }

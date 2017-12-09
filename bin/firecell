@@ -2,9 +2,15 @@
 
 'use strict'
 
+const fs = require('fs')
 const os = require('os')
+const path = require('path')
+const spawn = require('child_process').spawn
+const request = require('request')
 
-// listen process unhandledRejection for promise
+const homedir = os.homedir()
+const maindir = path.join(homedir, '.firecell')
+
 process.on('unhandledRejection', function (reason) {
   console.error(
     'unhandled rejection',
@@ -17,61 +23,89 @@ function parseCommand(args, keys) {
   var regexps = keys.map(key => new RegExp(`^-?${key[0]}`, 'i'))
   args.forEach(arg => {
     var index = regexps.findIndex(e => e.test(arg))
-    if (index >= 0) {
-      command = keys[index]
-    }
+    if (index >= 0) command = keys[index]
   })
   return command
 }
 
-function parseConfig(args, keys) {
-  var config = {}
-  var regexps = keys.map(key => new RegExp(`^--${key}=`))
+function parseOptions(args, keys) {
+  var options = {}
+  var regexps = keys.map(key => new RegExp(`^--${key}=?`))
   args.forEach(arg => {
     var index = regexps.findIndex(e => e.test(arg))
     if (index >= 0) {
       var value = arg.replace(regexps[index], '')
-      config[keys[index]] = value
+      options[keys[index]] = value || 'true'
     }
   })
-  return config
+  return options
 }
 
 function showHelp() {
-  console.log('\nfirecell [command] [options]')
-  console.log('\nexample\n')
-  console.log('  firecell -h')
-  console.log('  firecell -d')
-  console.log('  firecell --mode=direct --port=8080 --path=~')
-  console.log('  firecell --mode=mirror')
-  console.log('  firecell help')
-  console.log('\ndefault\n')
-  console.log('  mirror mode at 9999\n')
+  var guidePath = path.join(__dirname, 'guide.txt')
+  var guideText = fs.readFileSync(guidePath, 'utf8')
+  console.log(guideText)
 }
 
-const cwd = process.cwd()
-const cmd = parseCommand(process.argv, ['help', 'direct'])
-const cfg = parseConfig(process.argv, ['port', 'mode', 'path'])
+function forkSelf() {
+  var cwd = process.cwd()
+  var argv = process.argv.filter(e => e !== '--fork')
+  var logFd = fs.openSync(path.join(maindir, 'log'), 'a')
+  var proc = spawn(argv[0], argv.slice(1), { 
+    cwd, detached: true, stdio: ['ignore', logFd, logFd]
+  })
+  console.log(`\n  firecell - fork <${argv.slice(2).join(' ')}> at ${proc.pid}`)
+  var timeout = setTimeout(function () {
+    console.log(`  firecell - fork done\n`)
+    proc.unref()
+    process.exit(0)
+  }, 3000)
+  proc.on('exit', function (code) {
+    if (code) console.log(`  firecell - fork error code => ${code}\n`)
+    clearTimeout(timeout)
+    process.exit(code)
+  })
+}
 
-if (cmd === 'help') {
-  return showHelp()
-}
-if (cmd === 'direct') {
-  cfg.mode = 'direct'
-}
-
-if (!cfg.path) {
-  cfg.path = cwd
-}
-else if (cfg.path === '~') {
-  cfg.path = os.homedir()
-}
-
-require('../')({
-  mode: cfg.mode || 'mirror',
-  port: cfg.port,
-  path: {
-    direct: cfg.path,
-    cursor: cfg.path
+function stopSelf() {
+  var portFile = path.join(maindir, 'port')
+  try {
+    var port = fs.readFileSync(portFile, 'utf8')
+    request.get(`http://localhost:${port}/__/api/stopServer`)
+    .on('response', function () {
+      console.log('\n  firecell - server stopped\n')
+    })
+    .on('error', function () {
+      console.log('\n  firecell - server is not running\n')
+    })
+  } catch (error) {
+    console.log('\n  firecell - server still running ? @_@ \n')
   }
-})
+}
+
+(function main() {
+  var cwd = process.cwd()
+  var command = parseCommand(process.argv, ['help', 'stop', 'direct', 'mirror'])
+  var options = parseOptions(process.argv, ['port', 'mode', 'path', 'fork'])
+
+  if (command === 'help') return showHelp()
+  if (command === 'stop') return stopSelf()
+  if (command === 'direct') options.mode = 'direct'
+  if (command === 'mirror') options.mode = 'mirror'
+
+  if (options.fork) return forkSelf()
+  if (!options.path) {
+    options.path = cwd
+  }
+  else if (options.path === '~') {
+    options.path = homedir
+  }
+  require('../')({
+    mode: options.mode || 'mirror',
+    port: options.port,
+    path: {
+      direct: options.path,
+      cursor: options.path
+    }
+  })
+})()

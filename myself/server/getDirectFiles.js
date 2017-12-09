@@ -1,7 +1,6 @@
 const fs = require('fs')
 const os = require('os')
 const path = require('path')
-
 const assist = require('../../kernel/assist.js')
 const config = require('../../kernel/config.js')
 

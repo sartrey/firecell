@@ -2,9 +2,12 @@ const path = require('path')
 const epiiRender = require('epii-render')
 
 const config = {
-  client: path.join(__dirname, 'client'),
-  vendor: path.join(__dirname, 'vendor'),
-  static: path.join(__dirname, 'static'),
+  path: {
+    root: __dirname,
+    client: 'client',
+    vendor: 'vendor',
+    static: 'static',
+  },
   filter: 'component', // skip client/**/component/*
   holder: {
     name: 'app', // container name, name='app' > div#app

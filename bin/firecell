@@ -6,7 +6,7 @@ const fs = require('fs')
 const os = require('os')
 const path = require('path')
 const spawn = require('child_process').spawn
-const request = require('request')
+const fetch = require('node-fetch')
 
 const homedir = os.homedir()
 const maindir = path.join(homedir, '.firecell')
@@ -59,7 +59,7 @@ function forkSelf() {
     console.log(`  firecell - fork done\n`)
     proc.unref()
     process.exit(0)
-  }, 3000)
+  }, 1500)
   proc.on('exit', function (code) {
     if (code) console.log(`  firecell - fork error code => ${code}\n`)
     clearTimeout(timeout)
@@ -71,11 +71,12 @@ function stopSelf() {
   var portFile = path.join(maindir, 'port')
   try {
     var port = fs.readFileSync(portFile, 'utf8')
-    request.get(`http://localhost:${port}/__/api/stopServer`)
-    .on('response', function () {
+    fetch(`http://localhost:${port}/__/api/stopServer`)
+    .then(response => response.json())
+    .then(json => {
       console.log('\n  firecell - server stopped\n')
     })
-    .on('error', function () {
+    .catch(error => {
       console.log('\n  firecell - server is not running\n')
     })
   } catch (error) {

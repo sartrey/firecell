@@ -3,11 +3,13 @@
 const fs = require('fs')
 const os = require('os')
 const path = require('path')
+const assist = require('./kernel/assist.js')
 const config = require('./kernel/config.js')
 const logger = require('./kernel/logger.js')
 const server = require('./kernel/server.js')
 
 const homedir = os.homedir()
+const maindir = path.join(homedir, '.firecell')
 
 /**
  * create firecell
@@ -29,8 +31,8 @@ function createFirecell(conf) {
   config.load(conf || {})
 
   // write port file
-  var portFile = path.join(homedir, '.firecell', 'port')
-  fs.writeFileSync(portFile, config.port.toString())
+  assist.mkdirSync(maindir)
+  fs.writeFileSync(path.join(maindir, 'port'), config.port.toString())
 
   return require('./handler.js')
 }

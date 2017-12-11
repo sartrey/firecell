@@ -1,14 +1,13 @@
 const fs = require('fs')
 const path = require('path')
-const request = require('request')
+const fetch = require('node-fetch')
 const assist = require('../../kernel/assist.js')
 const config = require('../../kernel/config.js')
 
 const sourceDir = path.join(config.path.mirror, 'static')
 
 module.exports = function (ctx, query) {
-  var itemDir = path.dirname(query.path)
-  assist.mkdirSync(itemDir)
+  assist.mkdirSync(path.dirname(query.path))
   var fullPath = path.join(sourceDir, query.path)
 
   var itemLink = query.link
@@ -16,17 +15,13 @@ module.exports = function (ctx, query) {
     itemLink = 'https:' + itemLink
   }
 
-  return new Promise(function (resolve, reject) {
-    request.get(itemLink)
-    .on('error', function(error) {
-      console.error(error)
-      reject(new Error('not found'))
-    })
-    .pipe(fs.createWriteStream(fullPath))
-    .on('finish', function () {
-      resolve()
-    })
+  return fetch(itemLink).then(function (response) {
+    var ws = fs.createWriteStream(fullPath)
+    response.body.pipe(ws)
+    return assist.getJSON(true)
   })
-  .then(() => assist.getJSON(true))
-  .catch(error => assist.getJSON(false, error.message))
+  .catch(function (error) {
+    console.error(error)
+    return assist.getJSON(false, error.message)
+  })
 }

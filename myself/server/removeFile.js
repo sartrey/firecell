@@ -1,6 +1,5 @@
 const fs = require('fs')
 const path = require('path')
-const request = require('request')
 const assist = require('../../kernel/assist.js')
 const config = require('../../kernel/config.js')
 

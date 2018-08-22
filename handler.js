@@ -11,11 +11,7 @@ const REGEXP_ENTRY = /^\/$/
 module.exports = function (request, response) {
   var ctx = { request, response }
   var url = require('url').parse(request.url, true)
-  if (url.query.debug) {
-    Object.keys(request.headers).forEach(key => {
-      logger.warn(`[${key}]`, request.headers[key])
-    })
-  }
+  if (url.query.debug) ctx.debug = true
 
   if (REGEXP_ADMIN.test(url.pathname)) {
     // output debug url info

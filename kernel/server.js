@@ -40,8 +40,7 @@ function serveData(context, route, query) {
       context.response.write(JSON.stringify(result))
       context.response.end()
     }
-  }
-  catch (error) {
+  } catch (error) {
     context.response.write(JSON.stringify(assist.getJSON(false, error.message)))
     context.response.end()
   }
@@ -65,13 +64,25 @@ function serveFile(context, file) {
 
   var headers = {
     'Connection': 'close',
-    'Content-Type': mime.contentType(path.extname(file)) 
-      || 'application/octet-stream',
+    'Content-Type': mime.contentType(path.extname(file)) || 'application/octet-stream',
     'Content-Length': stat.size,
     'Access-Control-Allow-Origin': '*',
     'Timing-Allow-Origin': '*'
   }
+  if (context.debug) {
+    headers['Set-Cookie'] = `firecell=${Date.now()}`
+  }
   context.response.writeHead(200, headers)
+  if (context.debug) {
+    logger.info('=> request')
+    Object.keys(context.request.headers).forEach(key => {
+      logger.warn(`=> [${key}]`, context.request.headers[key])
+    })
+    logger.info('<= response')
+    Object.keys(headers).forEach(key => {
+      logger.warn(`<= [${key.toLowerCase()}]`, headers[key])
+    })
+  }
 
   var stream = fs.createReadStream(file)
   stream.pipe(context.response)
@@ -89,8 +100,11 @@ function serveFile(context, file) {
  */
 function serveView(context, view) {
   var viewDir = path.join(__dirname, '../myself/client', view)
-  var headers = {}
-  headers['Content-Type'] = 'text/html; charset=utf-8'
+  var headers = {
+    'Content-Type': 'text/html; charset=utf-8',
+    'Access-Control-Allow-Origin': '*',
+    'Timing-Allow-Origin': '*'
+  }
   context.response.writeHead(200, headers)
   context.response.write(
     ENTRY_HTML.replace(/\/\$\{key\}/g, path.join(view, 'index'))

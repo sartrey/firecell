@@ -1,0 +1,53 @@
+.modal {
+  position: fixed;
+  width: 100vw;
+  height: 120vh;
+  left: 0;
+  top: -10vh;
+  background: rgba(0, 0, 0, .5);
+  z-index: 100;
+
+  .dialog {
+    position: absolute;
+    width: 40rem; /* TODO - mobile */
+    left: calc(50% - 20rem);
+    top: 50%;
+    overflow: hidden;
+    border-radius: 5px;
+    box-shadow: 0 0 .5rem 2px rgba(0, 0, 0, .2);
+    z-index: 110;
+    transform: translateY(-50%);
+    transition: .3s;
+
+    .header {
+      display: flex;
+      align-items: stretch;
+      color: #FFF176;
+      background: #424242;
+      user-select: none;
+
+      > .title {
+        flex: 1;
+        padding: .5rem .75rem;
+      }
+
+      > .close {
+        display: flex;
+        align-items: center;
+
+        > a {
+          padding-right: .75rem;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .content {
+      background: #EEEEEE;
+    }
+
+    .footer {
+      background: #EEEEEE;
+    }
+  }
+}

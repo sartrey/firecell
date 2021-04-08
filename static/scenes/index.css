@@ -1,0 +1,477 @@
+.container.console {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+  .container.console header {
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    padding: 0 .75rem;
+    color: #FFF176;
+    background: #424242;
+    box-shadow: 0 1px 2px #BDBDBD;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+  }
+
+  .container.console header > div {
+      flex: 1;
+    }
+
+  .container.console header .logo {
+      font-size: 1.5rem;
+      text-align: left;
+    }
+
+  .container.console header .mode {
+      display: flex;
+      justify-content: flex-end;
+      -webkit-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none;
+    }
+
+  .container.console header .mode > div {
+        padding: .4rem 1rem;
+        border: 1px solid #FFF176;
+        cursor: pointer;
+        transition: .3s
+      }
+
+  .container.console header .mode > div:hover {
+          background: #616161;
+        }
+
+  .container.console header .mode > div.active {
+          color: #424242;
+          background: #FFF176;
+        }
+
+  .container.console .holder {
+    flex: 1;
+    overflow: auto
+  }
+
+  .container.console .holder::-webkit-scrollbar {
+      width: .7rem;
+      height: .7rem;
+      background: #BDBDBD;
+    }
+
+  .container.console .holder::-webkit-scrollbar-thumb {
+      border: 3px solid #BDBDBD;
+      border-right-width: 2px;
+      border-radius: 4px;
+      background: #616161;
+    }
+
+.button {
+  display: inline-block;
+  padding: .4rem .5rem;
+  border-radius: 3px;
+  transition: .2s ease-in-out;
+}
+
+.button-group > .button {
+    border-radius: 0
+  }
+
+.button-group > .button:first-of-type {
+      border-radius: 3px 0 0 3px;
+    }
+
+.button-group > .button:last-of-type {
+      border-radius: 0 3px 3px 0;
+    }
+.input {
+  display: flex;
+  flex-direction: column;
+}
+
+  .input label {
+    display: block;
+    padding-bottom: .4rem;
+    color: #666;
+  }
+
+  .input input {
+    display: block;
+    padding: .5rem;
+    border-radius: 1px;
+    border: 1px solid #666;
+    outline: none;
+    transition: .2s ease-in-out;
+  }
+.modal {
+  position: fixed;
+  width: 100vw;
+  height: 120vh;
+  left: 0;
+  top: -10vh;
+  background: rgba(0, 0, 0, .5);
+  z-index: 100;
+}
+
+  .modal .dialog {
+    position: absolute;
+    width: 40rem; /* TODO - mobile */
+    left: calc(50% - 20rem);
+    top: 50%;
+    overflow: hidden;
+    border-radius: 5px;
+    box-shadow: 0 0 .5rem 2px rgba(0, 0, 0, .2);
+    z-index: 110;
+    transform: translateY(-50%);
+    transition: .3s;
+  }
+
+  .modal .dialog .header {
+      display: flex;
+      align-items: stretch;
+      color: #FFF176;
+      background: #424242;
+      -webkit-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none;
+    }
+
+  .modal .dialog .header > .title {
+        flex: 1;
+        padding: .5rem .75rem;
+      }
+
+  .modal .dialog .header > .close {
+        display: flex;
+        align-items: center;
+      }
+
+  .modal .dialog .header > .close > a {
+          padding-right: .75rem;
+          cursor: pointer;
+        }
+
+  .modal .dialog .content {
+      background: #EEEEEE;
+    }
+
+  .modal .dialog .footer {
+      background: #EEEEEE;
+    }
+.modal-file-link .content {
+    padding: .75rem;
+  }
+
+    .modal-file-link .content .button-group {
+      display: flex;
+    }
+
+    .modal-file-link .content .button.theme-large {
+        font-size: 1.2rem;
+        padding: .5rem;
+        flex: 1;
+        box-shadow: 0 0 1px rgba(0,0,0,.5);
+        background: #fff;
+        text-align: center;
+      }
+
+    .modal-file-link .content .button:hover {
+        color: #000;
+        background: #F9A825;
+      }
+
+    .modal-file-link .content .input {
+      padding-bottom: .75rem;
+    }
+
+    .modal-file-link .content .input label {
+        font-size: .9rem;
+      }
+
+    .modal-file-link .content .input input {
+        font-size: 1rem;
+        border-color: #999
+      }
+
+    .modal-file-link .content .input input:hover {
+          border-color: #666;
+        }
+
+    .modal-file-link .content .input input:focus {
+          border-color: #333;
+        }
+
+
+  .modal-file-info.disabled .content .detail p {
+          color: #999;
+        }
+        .modal-file-info.disabled .content .detail a {
+          color: #999
+        }
+        .modal-file-info.disabled .content .detail a:hover {
+            color: #999;
+            cursor: not-allowed;
+          }
+.modal-file-info .content {
+    display: flex;
+    padding: .75rem;
+  }
+.modal-file-info .content .qrcode {
+      flex: 0;
+      display: flex;
+      align-items: center;
+    }
+.modal-file-info .content .qrcode > canvas {
+        box-shadow: 0 0 3px rgba(0,0,0,.2);
+      }
+.modal-file-info .content .detail {
+      flex: 1;
+      margin-left: .75rem;
+    }
+.modal-file-info .content .detail * {
+        word-wrap: break-word;
+        word-break: break-all;
+      }
+.modal-file-info .content .detail .line {
+        margin-bottom: .5rem;
+      }
+.modal-file-info .content .detail h1 {
+        font-size: .6rem;
+        font-weight: normal;
+        color: #999;
+      }
+.modal-file-info .content .detail a {
+        display: block;
+        color: #424242;
+        text-decoration: none;
+        cursor: pointer;
+        transition: .3s
+      }
+.modal-file-info .content .detail a:hover {
+          color: #F9A825;
+        }
+.console-mirror .button.theme-basic {
+      color: #424242;
+      background: #fff;
+      box-shadow: 0 0 1px rgba(0,0,0,.3)
+    }
+    .console-mirror .button.theme-basic:hover {
+        color: #000;
+        background: #F9A825;
+      }
+    .console-mirror .file-head {
+    display: flex;
+    align-items: center;
+    padding: 1rem .75rem .5rem;
+  }
+    .console-mirror .file-head .stat-info {
+    }
+    .console-mirror .file-head .actions {
+      vertical-align: middle;
+      margin-right: 1rem;
+    }
+    .console-mirror .file-list .file-item {
+      display: flex;
+      align-items: center;
+      margin: .5rem .75rem;
+      color: #424242;
+      background: #fff;
+      border-radius: 2px;
+      box-shadow: 0 0 1px rgba(0,0,0,.3);
+      transition: .2s
+    }
+    .console-mirror .file-list .file-item:hover {
+        color: #FFF176;
+        background: #424242;    
+      }
+    .console-mirror .file-list .file-item:hover .button.theme-small {
+            box-shadow: none;
+            color: #fff;
+            background: transparent
+          }
+    .console-mirror .file-list .file-item:hover .button.theme-small:hover {
+              color: #F9A825;
+              background: transparent;
+            }
+    .console-mirror .file-list .file-item .file-info {
+        padding: .5rem;
+        margin-right: 1rem;
+        word-break: break-all
+      }
+    .console-mirror .file-list .file-item .file-info.path {
+          flex: 1 9rem;
+        }
+    .console-mirror .file-list .file-item .file-info.from {
+          flex: 39 10rem;
+          min-width: 10rem;
+        }
+    .console-mirror .file-list .file-item .file-info.from a {
+            color: #aaa;
+            text-decoration: none;
+          }
+    .console-mirror .file-list .file-item .actions {
+        flex: 0 8rem;
+        text-align: right;
+      }
+    .console-mirror .file-list .file-item .actions a {
+          display: inline-block;
+          font-size: 1.2rem;
+          padding: .3rem
+        }
+    .console-mirror .file-list .file-item .actions a:hover {
+            color: #EF5350;
+          }
+
+.console-direct .cursor {
+    padding: .75rem .75rem .25rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  .console-direct .filter {
+    padding: .75rem .75rem .25rem;
+  }
+  .console-direct .filter input {
+      font-size: 1.1rem;
+      width: calc(100% - 1rem - 4px);
+      padding: .6rem;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      transition: .2s
+    }
+  .console-direct .filter input:hover {
+        border-color: #666;
+      }
+  .console-direct .filter input:focus {
+        outline: none;
+        border-color: #333;
+      }
+  .console-direct section h1 {
+      font-size: 1.2rem;
+      font-weight: bold;
+      padding: .75rem .75rem .25rem;
+      color: #666;
+      text-shadow: 1px 1px 1px #fff;
+    }
+  .console-direct .file-list {
+    display: flex;
+    flex-wrap: wrap;
+    grid-gap: .75rem;
+    gap: .75rem;
+    padding: .75rem;
+    list-style-type: none;
+  }
+  .console-direct .file-list .file-item {
+      box-sizing: border-box;
+      width: calc(20% - .6rem);
+      color: #424242;
+      background: #fff;
+      border-radius: 3px;
+      box-shadow: 0 0 1px rgba(0,0,0,.3);
+      transition: .2s
+    }
+  .console-direct .file-list .file-item:hover {
+        color: #FFF176;
+        background: #424242;
+      }
+  .console-direct .file-list .file-item a {
+        display: block;
+        padding: 1rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+.container.welcome {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFF176;
+  background: #424242;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;    
+}
+
+  .container.welcome a {
+    color: #FFF176;
+    text-decoration: none;
+    cursor: pointer;
+    transition: .5s
+  }
+
+  .container.welcome a:hover {
+      color: #F9A825;
+    }
+
+  .container.welcome .header {
+    flex: 1;
+    text-align: center;
+  }
+
+  .container.welcome .header a {
+      display: block;
+    }
+
+  .container.welcome .header .myself {
+      font-size: 8vw;
+    }
+
+  .container.welcome .header .github {
+      font-size: 2vw;
+      margin: 1em;
+    }
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Material Icons'),
+       url('/__file/assets/MaterialIcons.ttf') format('truetype');
+}
+
+.md-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  line-height: 1;
+  padding-bottom: 1px;
+  margin-top: -1px;
+  vertical-align: middle;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'liga';
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: "Trebuchet MS";
+  color: #424242;
+  background: #EEEEEE;
+}
+
+a {
+  cursor: pointer;
+}
+

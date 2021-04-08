@@ -1,22 +1,20 @@
 #!/usr/bin/env node
 
-'use strict'
-
 const fs = require('fs')
 const os = require('os')
 const path = require('path')
 const spawn = require('child_process').spawn
 const fetch = require('node-fetch')
 
-const homedir = os.homedir()
-const maindir = path.join(homedir, '.firecell')
+const homedir = os.homedir();
+const maindir = path.join(homedir, '.firecell');
 
-process.on('unhandledRejection', function (reason) {
+process.on('unhandledRejection', (reason) => {
   console.error(
     'unhandled rejection',
     reason && (reason.stack || reason.toString())
-  )
-})
+  );
+});
 
 function parseCommand(args, keys) {
   var command = ''
@@ -86,27 +84,21 @@ function stopSelf() {
 
 (function main() {
   var cwd = process.cwd()
-  var command = parseCommand(process.argv, ['help', 'stop', 'direct', 'mirror'])
-  var options = parseOptions(process.argv, ['port', 'mode', 'path', 'fork'])
+  var command = parseCommand(process.argv, ['help', 'stop', 'direct', 'mirror']);
+  var options = parseOptions(process.argv, ['port', 'mode', 'path', 'fork']);
 
-  if (command === 'help') return showHelp()
-  if (command === 'stop') return stopSelf()
-  if (command === 'direct') options.mode = 'direct'
-  if (command === 'mirror') options.mode = 'mirror'
+  if (command === 'help') return showHelp();
+  if (command === 'stop') return stopSelf();
+  if (command === 'direct') options.mode = 'direct';
+  if (command === 'mirror') options.mode = 'mirror';
 
-  if (options.fork) return forkSelf()
-  if (!options.path) {
-    options.path = cwd
+  if (options.fork) return forkSelf();
+  if (options.path === '~') {
+    options.path = homedir;
   }
-  else if (options.path === '~') {
-    options.path = homedir
-  }
-  require('../')({
+  require('../kernel/server').startServer({
     mode: options.mode || 'mirror',
     port: options.port,
-    path: {
-      direct: options.path,
-      cursor: options.path
-    }
-  })
-})()
+    path: options.path,
+  });
+})();

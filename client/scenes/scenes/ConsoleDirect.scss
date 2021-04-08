@@ -1,0 +1,70 @@
+.console-direct {
+  .cursor {
+    padding: .75rem .75rem .25rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .filter {
+    padding: .75rem .75rem .25rem;
+
+    input {
+      font-size: 1.1rem;
+      width: calc(100% - 1rem - 4px);
+      padding: .6rem;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      transition: .2s;
+      
+      &:hover {
+        border-color: #666;
+      }
+  
+      &:focus {
+        outline: none;
+        border-color: #333;
+      }
+    }
+  }
+  
+  section {
+    h1 {
+      font-size: 1.2rem;
+      font-weight: bold;
+      padding: .75rem .75rem .25rem;
+      color: #666;
+      text-shadow: 1px 1px 1px #fff;
+    }
+  }
+  
+  .file-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem;
+    padding: .75rem;
+    list-style-type: none;
+  
+    .file-item {
+      box-sizing: border-box;
+      width: calc(20% - .6rem);
+      color: #424242;
+      background: #fff;
+      border-radius: 3px;
+      box-shadow: 0 0 1px rgba(0,0,0,.3);
+      transition: .2s;
+  
+      &:hover {
+        color: #FFF176;
+        background: #424242;
+      }
+  
+      a {
+        display: block;
+        padding: 1rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}

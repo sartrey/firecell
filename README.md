@@ -1,6 +1,6 @@
 # firecell
 
-local static server with mirror
+A local static file server.
 
 ## Usage
 
@@ -17,7 +17,7 @@ firecell
 # serve CWD at 8080 (direct mode)
 firecell --port=8080 --mode=direct
 
-# server CWD at 9999 (direct mode)
+# serve CWD at 9999 (direct mode)
 firecell -d
 
 # fork server (direct mode)

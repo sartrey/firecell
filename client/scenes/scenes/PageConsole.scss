@@ -1,0 +1,65 @@
+.container.console {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  header {
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    padding: 0 .75rem;
+    color: #FFF176;
+    background: #424242;
+    box-shadow: 0 1px 2px #BDBDBD;
+    user-select: none;
+    
+    > div {
+      flex: 1;
+    }
+  
+    .logo {
+      font-size: 1.5rem;
+      text-align: left;
+    }
+  
+    .mode {
+      display: flex;
+      justify-content: flex-end;
+      user-select: none;
+  
+      > div {
+        padding: .4rem 1rem;
+        border: 1px solid #FFF176;
+        cursor: pointer;
+        transition: .3s;
+  
+        &:hover {
+          background: #616161;
+        }
+  
+        &.active {
+          color: #424242;
+          background: #FFF176;
+        }
+      }
+    }
+  }
+
+  .holder {
+    flex: 1;
+    overflow: auto;
+  
+    &::-webkit-scrollbar {
+      width: .7rem;
+      height: .7rem;
+      background: #BDBDBD;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      border: 3px solid #BDBDBD;
+      border-right-width: 2px;
+      border-radius: 4px;
+      background: #616161;
+    }
+  }
+}

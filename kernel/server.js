@@ -1,113 +1,121 @@
-'use strict'
+const os = require('os');
+const http = require('http');
+const path = require('path');
+const epiiMinion = require('@epiijs/minion');
+const { makeDir, writeFile, openByShell, } = require('./helper');
+const logger = require('./logger.js');
+const packageJSON = require('../package.json');
 
-const fs = require('fs')
-const path = require('path')
-const mime = require('mime-types')
-const assist = require('./assist.js')
-const logger = require('./logger.js')
+const homedir = os.homedir();
+const maindir = path.join(homedir, '.firecell');
 
-const ENTRY_HTML = fs.readFileSync(
-  path.join(__dirname, '../myself/entry.html'), 'utf8'
-)
+const CONTEXT = {
+  mode: 'mirror',
+  ipv4: [],
+  port: 9999,
+
+  mirror: {
+    path: maindir,
+    links: [],
+  },
+
+  direct: {
+    path: homedir,
+  },
+};
+
+/**
+ * get firecell context
+ * @returns {Object}
+ */
+function getContext() {
+  return CONTEXT;
+}
+
+function getIPv4List() {
+  var os = require('os')
+  var networks = os.networkInterfaces()
+  var ipv4List = []
+  Object.keys(networks).forEach(name => {
+    var network = networks[name]
+    network.filter(item => item.family === 'IPv4' && !item.internal)
+    .forEach(item => ipv4List.push(item.address))
+  })
+  return ipv4List
+}
+
+/**
+ * apply config
+ *
+ * @param  {Object} config
+ */
+function applyConfig(config = {}) {
+  if (config.mode) CONTEXT.mode = config.mode;
+  if (config.port) CONTEXT.port = config.port;
+  if (config.path) CONTEXT[config.mode].path = config.path;
+}
+
+/**
+ * create firecell
+ * @return {Function} standard http.Server callback
+ */
+async function createServer() {
+  // write port file
+  await makeDir(maindir, { recursive: true });
+  // create minion server
+  const minion = {
+    path: {
+      root: path.join(__dirname, '../'),
+      layout: 'kernel/layout.html',
+    },
+  };
+  return epiiMinion.createServer(minion);
+}
+
+/**
+ * start firecell
+ *
+ * @param {Object=} conf
+ * @return {Object} { http.Server }
+ */
+async function startServer(config) {
+  process.on('unhandledRejection', (error) => {
+    logger.halt(error);
+  });
+
+  // apply config
+  applyConfig(config);
+
+  // load host info
+  CONTEXT.ipv4 = getIPv4List();
+
+  // create firecell
+  const server = await createServer();
+  
+  // create http server for client
+  await writeFile(path.join(maindir, 'port'), CONTEXT.port.toString())
+  const httpServer = http
+    .createServer(server)
+    .listen(CONTEXT.port, () => {
+      logger.info(`version ${packageJSON.version}`);
+      logger.warn(`listening at ${CONTEXT.port}`);
+      logger.warn(`working as ${CONTEXT.mode} mode`);
+      if (CONTEXT.mode === 'direct') {
+        logger.info(`working at ${CONTEXT.direct.path}`);
+      }
+      openByShell(`http://localhost:${CONTEXT.port}`);
+    })  
+    .on('clientError', (error, socket) => {
+      if (error.code === 'ECONNRESET' || !socket.writable) return;
+      socket.end('HTTP/1.1 400 Bad Request\r\n\r\n');
+    })
+    .on('timeout', function (socket) {
+      socket.end()
+    });
+  return httpServer
+}
 
 module.exports = {
-  serveData,
-  serveFile,
-  serveView
-}
-
-/**
- * serve data
- *
- * @param {Object} context
- * @param {String} route
- * @param {Object} query
- */
-function serveData(context, route, query) {
-  var headers = {}
-  headers['Content-Type'] = 'application/json'
-  context.response.writeHead(200, headers)
-  try {
-    var action = require('../myself/server' + route)
-    var result = action.call(null, context, query)
-    if (result instanceof Promise) {
-      context.response.async = true
-      result.then(json => {
-        context.response.write(JSON.stringify(json))
-        context.response.end()
-      })
-    } else {
-      context.response.write(JSON.stringify(result))
-      context.response.end()
-    }
-  } catch (error) {
-    context.response.write(JSON.stringify(assist.getJSON(false, error.message)))
-    context.response.end()
-  }
-}
-
-/**
- * serve file
- *
- * @param {Object} context
- * @param {String} file
- */
-function serveFile(context, file) {
-  context.response.async = true
-
-  try {
-    var stat = fs.statSync(file)
-  } catch (error) {
-    context.response.writeHead(404)
-    return context.response.end('not found')
-  }
-
-  var headers = {
-    'Connection': 'close',
-    'Content-Type': mime.contentType(path.extname(file)) || 'application/octet-stream',
-    'Content-Length': stat.size,
-    'Access-Control-Allow-Origin': '*',
-    'Timing-Allow-Origin': '*'
-  }
-  if (context.debug) {
-    headers['Set-Cookie'] = `firecell=${Date.now()}`
-  }
-  context.response.writeHead(200, headers)
-  if (context.debug) {
-    logger.info('=> request')
-    Object.keys(context.request.headers).forEach(key => {
-      logger.warn(`=> [${key}]`, context.request.headers[key])
-    })
-    logger.info('<= response')
-    Object.keys(headers).forEach(key => {
-      logger.warn(`<= [${key.toLowerCase()}]`, headers[key])
-    })
-  }
-
-  var stream = fs.createReadStream(file)
-  stream.pipe(context.response)
-  .on('error', function (error) {
-    logger.halt(error.message)
-    context.response.end()
-  })
-}
-
-/**
- * serve view
- *
- * @param {Object} context
- * @param {String} view
- */
-function serveView(context, view) {
-  var viewDir = path.join(__dirname, '../myself/client', view)
-  var headers = {
-    'Content-Type': 'text/html; charset=utf-8',
-    'Access-Control-Allow-Origin': '*',
-    'Timing-Allow-Origin': '*'
-  }
-  context.response.writeHead(200, headers)
-  context.response.write(
-    ENTRY_HTML.replace(/\/\$\{key\}/g, path.join(view, 'index'))
-  )
-  context.response.end()
-}
+  startServer,
+  getContext,
+};

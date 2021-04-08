@@ -1,0 +1,38 @@
+.container.welcome {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFF176;
+  background: #424242;
+  user-select: none;
+
+  a {
+    color: #FFF176;
+    text-decoration: none;
+    cursor: pointer;
+    transition: .5s;
+  
+    &:hover {
+      color: #F9A825;
+    }
+  }
+
+  .header {
+    flex: 1;
+    text-align: center;
+  
+    a {
+      display: block;
+    }
+  
+    .myself {
+      font-size: 8vw;
+    }
+  
+    .github {
+      font-size: 2vw;
+      margin: 1em;
+    }
+  }    
+}

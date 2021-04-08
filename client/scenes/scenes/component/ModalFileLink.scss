@@ -1,0 +1,46 @@
+.modal-file-link {
+  .content {
+    padding: .75rem;
+
+    .button-group {
+      display: flex;
+    }
+  
+    .button {
+      &.theme-large {
+        font-size: 1.2rem;
+        padding: .5rem;
+        flex: 1;
+        box-shadow: 0 0 1px rgba(0,0,0,.5);
+        background: #fff;
+        text-align: center;
+      }
+
+      &:hover {
+        color: #000;
+        background: #F9A825;
+      }
+    }
+
+    .input {
+      padding-bottom: .75rem;
+  
+      label {
+        font-size: .9rem;
+      }
+    
+      input {
+        font-size: 1rem;
+        border-color: #999;
+    
+        &:hover {
+          border-color: #666;
+        }
+    
+        &:focus {
+          border-color: #333;
+        }
+      }
+    }
+  }
+}

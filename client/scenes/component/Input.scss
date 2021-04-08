@@ -1,0 +1,19 @@
+.input {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    display: block;
+    padding-bottom: .4rem;
+    color: #666;
+  }
+
+  input {
+    display: block;
+    padding: .5rem;
+    border-radius: 1px;
+    border: 1px solid #666;
+    outline: none;
+    transition: .2s ease-in-out;
+  }
+}

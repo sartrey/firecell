@@ -1,0 +1,48 @@
+.alert {
+  position: relative;
+  margin: .5rem;
+  box-shadow: 0 0 3px rgba(0,0,0,0.5);
+
+  > .wrapper {
+    padding: 1rem;
+  }
+
+  > .close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-align: right;
+    display: block;
+    padding: 1rem;
+    line-height: 1rem;
+    cursor: pointer;
+  }
+}
+
+.alert {
+  color: #fff;
+
+  .close {
+    color: #fff;
+  }
+}
+
+.alert-halt {
+  background: #E53935;
+}
+
+.alert-warn {
+  background: #FFB300;
+}
+
+.alert-done {
+  background: #43A047;
+}
+
+.alert-hub {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: auto;
+}

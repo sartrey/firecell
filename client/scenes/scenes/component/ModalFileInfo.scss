@@ -1,0 +1,67 @@
+.modal-file-info {
+  &.disabled {
+    .content {
+      .detail {
+        p {
+          color: #999;
+        }
+  
+        a {
+          color: #999;
+  
+          &:hover {
+            color: #999;
+            cursor: not-allowed;
+          }
+        }
+      }
+    }
+  }
+
+  .content {
+    display: flex;
+    padding: .75rem;
+
+    .qrcode {
+      flex: 0;
+      display: flex;
+      align-items: center;
+      
+      > canvas {
+        box-shadow: 0 0 3px rgba(0,0,0,.2);
+      }
+    }
+
+    .detail {
+      flex: 1;
+      margin-left: .75rem;
+
+      * {
+        word-wrap: break-word;
+        word-break: break-all;
+      }
+
+      .line {
+        margin-bottom: .5rem;
+      }
+
+      h1 {
+        font-size: .6rem;
+        font-weight: normal;
+        color: #999;
+      }
+
+      a {
+        display: block;
+        color: #424242;
+        text-decoration: none;
+        cursor: pointer;
+        transition: .3s;
+
+        &:hover {
+          color: #F9A825;
+        }
+      }
+    }
+  }
+}

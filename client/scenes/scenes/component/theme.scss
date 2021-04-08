@@ -1,0 +1,53 @@
+.field {
+  margin: .75rem;
+
+  input {
+    width: 100%;
+    padding: .5rem;
+    border: 1px solid #ccc;
+    border-radius: 1px;
+    outline: none;
+    transition: .5s;
+
+    &:hover {
+      border-color: #aaa;
+    }
+
+    &:focus {
+      border-color: #666;
+      box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    }
+  }
+}
+
+.btn {
+  cursor: pointer;
+  transition: .3s;
+  user-select: none;
+
+  &.btn-f00:hover {
+    color: #900;
+  }
+
+  &.btn-0f0:hover {
+    color: #360;
+  }
+
+  &.btn-lg {
+    display: block;
+    padding: .8rem;
+    text-align: center;
+    background: rgba(255,255,255,.5);
+    box-shadow: 0 0 3px rgba(0,0,0,.3);
+
+    &:hover {
+      background: #fff;
+      box-shadow: 0 0 3px rgba(0,0,0,.6);
+    }
+  }
+}
+
+.text-halt {
+  margin: .75rem;
+  color: #B71C1C;
+}

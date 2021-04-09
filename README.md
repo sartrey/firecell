@@ -11,13 +11,6 @@ A local static file server.
 ### start server anywhere
 
 ```sh
-
-    firecell -d
-    firecell -d --fork
-    firecell --mode=direct --port=8080 --path=~
-    firecell --mode=mirror
-    firecell --help
-
 # serve ~/.firecell at 9999 (mirror mode)
 firecell
 

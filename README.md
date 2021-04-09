@@ -11,11 +11,15 @@ A local static file server.
 ### start server anywhere
 
 ```sh
+
+    firecell -d
+    firecell -d --fork
+    firecell --mode=direct --port=8080 --path=~
+    firecell --mode=mirror
+    firecell --help
+
 # serve ~/.firecell at 9999 (mirror mode)
 firecell
-
-# serve CWD at 8080 (direct mode)
-firecell --port=8080 --mode=direct
 
 # serve CWD at 9999 (direct mode)
 firecell -d
@@ -23,11 +27,14 @@ firecell -d
 # fork server (direct mode)
 firecell -d --fork
 
-# stop server
-firecell stop
+# serve CWD at 8080 (direct mode)
+firecell --mode=direct --port=8080
+
+# serve root dir (direct mode)
+firecell -d --path=/
 
 # show help
-firecell -h
+firecell --help
 ```
 
 ### access homepage

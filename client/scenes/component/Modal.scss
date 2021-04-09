@@ -4,8 +4,18 @@
   height: 120vh;
   left: 0;
   top: -10vh;
-  background: rgba(0, 0, 0, .5);
   z-index: 100;
+  background: rgba(0,0,0,.5);
+  opacity: .1;
+  transform: .3s;
+
+  &.anime {
+    opacity: 1;
+
+    .dialog {
+      transform: translateY(-60%);
+    }
+  }
 
   .dialog {
     position: absolute;

@@ -4,9 +4,8 @@ const { getContext, } = require('../kernel/server');
 const logger = require('../kernel/logger');
 
 const defaultLinks = [
-  { path: '/react.js', from: '//cdn.bootcss.com/react/15.4.1/react.js', },
-  { path: '/react-dom.js', from: '//cdn.bootcss.com/react/15.4.1/react-dom.js', },
-  { path: '/jquery.js', from: '//cdn.bootcss.com/jquery/3.1.1/jquery.js', },
+  { path: '/react.js', from: '//unpkg.com/react@17/umd/react.production.min.js', },
+  { path: '/react-dom.js', from: '//unpkg.com/react-dom@17/umd/react-dom.production.min.js', },
 ];
 
 async function loadLinkList(listFile) {
@@ -38,7 +37,7 @@ module.exports = async (input) => {
   for (let item of links) {
     if (inputLinkPaths.length > 0 && inputLinkPaths.indexOf(item.path) < 0) continue;
     const filePath = path.join(fileRoot, item.path);
-    const fileStat = await statFile(filePath).catch(error => logger.halt(error));
+    const fileStat = await statFile(filePath).catch(error => logger.halt(error.message));
     const fileMeta = {
       path: item.path,
       from: item.from,

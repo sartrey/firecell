@@ -1,9 +1,22 @@
 .alert {
   position: relative;
   margin: .5rem;
+  color: #fff;
   box-shadow: 0 0 3px rgba(0,0,0,0.5);
 
-  > .wrapper {
+  &.theme-halt {
+    background: #E53935;
+  }
+  
+  &.theme-warn {
+    background: #FFB300;
+  }
+  
+  &.theme-done {
+    background: #43A047;
+  }
+
+  > .content {
     padding: 1rem;
   }
 
@@ -15,28 +28,8 @@
     display: block;
     padding: 1rem;
     line-height: 1rem;
-    cursor: pointer;
-  }
-}
-
-.alert {
-  color: #fff;
-
-  .close {
     color: #fff;
   }
-}
-
-.alert-halt {
-  background: #E53935;
-}
-
-.alert-warn {
-  background: #FFB300;
-}
-
-.alert-done {
-  background: #43A047;
 }
 
 .alert-hub {

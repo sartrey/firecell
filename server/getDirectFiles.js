@@ -6,15 +6,17 @@ const { getContext } = require('../kernel/server');
 module.exports = async (input) => {
   const context = getContext();
 
-  let target = input.path || '~';
+  let target = input.path;
   if (target === '~') {
     target = os.homedir();
   } else if (target === '/') {
     target = '/';
   } else if (target === '..') {
     target = path.join(context.direct.path, '..');
-  } else {
+  } else if (target) {
     target = path.join(context.direct.path, target);
+  } else {
+    target = context.direct.path;
   }
   context.direct.path = target;
 

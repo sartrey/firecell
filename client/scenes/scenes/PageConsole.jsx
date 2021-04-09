@@ -1,5 +1,6 @@
 import React from 'react';
 import { requestAction } from '../action';
+import { Alert } from '../component';
 import './PageConsole.scss';
 
 import ConsoleMirror from './ConsoleMirror';
@@ -28,6 +29,7 @@ export default function PageConsole(props) {
       <div className='holder'>
         { mode === 'mirror' && (<ConsoleMirror context={context} />) }
         { mode === 'direct' && (<ConsoleDirect context={context} />) }
+        <Alert.AlertHub onMount={e => context.alertHub = e} />
       </div>
       <footer />
     </div>

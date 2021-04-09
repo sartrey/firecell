@@ -1,18 +1,27 @@
-import React, { useEffect, } from 'react';
+import React, { useState, useEffect, } from 'react';
 import './Modal.scss';
 
 export default function Modal(props) {
-  const { children, disabled, footer, name, title, onClose } = props;
+  const { children, disabled, name, title, onClose } = props;
+  const [anime, setAnime] = useState(false);
+
+  const classes = ['modal', `modal-${name}`];
+  if (disabled) classes.push('disabled');
+  if (anime) classes.push('anime');
 
   const closeModal = () => {
-    if (onClose) onClose();
+    setAnime(false);
+    setTimeout(() => {
+      if (onClose) onClose();
+    }, 100);
   }
 
-  // useEffect(() => {
-  // }, []);
+  useEffect(() => {
+    setAnime(true);
+  }, []);
 
   return (
-    <div className={`modal modal-${name} ${disabled ? 'disabled' : ''}`} onClick={closeModal}>
+    <div className={classes.join(' ')} onClick={closeModal}>
       <div className='dialog' onClick={e => e.stopPropagation()}>
         <div className='header'>
           <div className='title'>{title}</div>
@@ -20,14 +29,7 @@ export default function Modal(props) {
             <a onClick={closeModal}><i className='md-icons'>close</i></a>
           </div>
         </div>
-        <div className='content'>
-          {children}
-        </div>
-        {footer && (
-          <div className='footer'>
-            {footer}
-          </div>
-        )}
+        <div className='content'>{children}</div>
       </div>
     </div>
   );

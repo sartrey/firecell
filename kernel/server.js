@@ -52,7 +52,10 @@ function getIPv4List() {
 function applyConfig(config = {}) {
   if (config.mode) CONTEXT.mode = config.mode;
   if (config.port) CONTEXT.port = config.port;
-  if (config.path) CONTEXT[config.mode].path = config.path;
+  if (config.path) {
+    CONTEXT[config.mode].path = config.path
+      .replace(/^~/, homedir);
+  }
 }
 
 /**
@@ -109,7 +112,7 @@ async function startServer(config) {
       if (error.code === 'ECONNRESET' || !socket.writable) return;
       socket.end('HTTP/1.1 400 Bad Request\r\n\r\n');
     })
-    .on('timeout', function (socket) {
+    .on('timeout', (socket) => {
       socket.end()
     });
   return httpServer

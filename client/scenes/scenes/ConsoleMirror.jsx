@@ -41,7 +41,9 @@ function FileList(props) {
   );
 }
 
-export default function ConsoleDirect(props) {
+export default function ConsoleMirror(props) {
+  const { context } = props;
+
   const [keyword, setKeyword] = useState('');
   const [fileLinks, setFileLinks] = useState([]);
   const [modalName, setModalName] = useState(null);
@@ -52,11 +54,22 @@ export default function ConsoleDirect(props) {
     setModalName(modal);
   }
 
+  const showAlert = (result) => {
+    getFiles();
+    const { alertHub } = context;
+    if (result instanceof Error) {
+      alertHub.append({ theme: 'halt', content: result.message, });
+    } else {
+      alertHub.append({ theme: 'done', content: result });
+    }
+  }
+
   const getFiles = (links) => {
     return requestAction('getMirrorFiles', { links })
-      .then(({ model }) => {
+      .then(({ model, error }) => {
         if (model) {
-          const links = mergeList(fileLinks, model, 'path');
+          // const links = mergeList(fileLinks, model, 'path');
+          const links = model;
           setFileLinks(links);
         }
       });
@@ -64,11 +77,26 @@ export default function ConsoleDirect(props) {
 
   const linkFile = (file) => {
     return requestAction('editFileLink', file)
-      .then(() => getFiles());
+      .then(({ error }) => {
+        if (error) {
+          showAlert(new Error(error));
+        } else {
+          getFiles();
+          showAlert(`file link ${file.path} updated`);
+        }
+      });
   }
 
   const syncFile = (file) => {
-    return requestAction('syncFileLink', file);
+    return requestAction('syncFileLink', file)
+      .then(({ error }) => {
+        if (error) {
+          showAlert(new Error(error));
+        } else {
+          getFiles();
+          showAlert(`file link ${file.path} fetched`);
+        }
+      });
   }
 
   const syncFiles = (files) => {
@@ -76,7 +104,14 @@ export default function ConsoleDirect(props) {
 
   const killFile = (file) => {
     return requestAction('killFileLink', file)
-      .then(() => getFiles());
+      .then(({ error }) => {
+        if (error) {
+          showAlert(new Error(error));
+        } else {
+          getFiles();
+          showAlert(`file link ${file.path} removed`)
+        }
+      });
   }
 
   const handleFile = (action, file) => {
@@ -104,33 +139,6 @@ export default function ConsoleDirect(props) {
     getFiles();
   }, []);
 
-  // pushAlert(type, body) {
-  //   var { tings } = this.state
-  //   tings.push({ type, body, time: new Date() })
-  //   this.setState({ tings })
-  // }
-
-  // kickAlert(item) {
-  //   var { tings } = this.state
-  //   var index = tings.indexOf(item)
-  //   tings.splice(index, 1)
-  //   this.setState({ tings })
-  // }
-
-  // renderAlert() {
-  //   var { tings } = this.state
-  //   return (
-  //     <div className='alert-hub'>
-  //       {tings.sort((a, b) => b.time - a.time).map((alert, i) => (
-  //         <Alert key={i} theme={alert.type}
-  //           onClose={e => this.kickAlert(alert)}>
-  //           {alert.body}
-  //         </Alert>
-  //       ))}
-  //     </div>
-  //   )
-  // }
-
   return (
     <div className='console-mirror'>
       <div className='file-head'>
@@ -142,12 +150,11 @@ export default function ConsoleDirect(props) {
       </div>
       <FileList items={fileLinks} onHandleFile={handleFile} />
       { modalName === 'file-info' && (
-        <ModalFileInfo context={props.context} file={modalData} onClose={() => setModalName(null)} />
+        <ModalFileInfo context={context} file={modalData} onClose={() => setModalName(null)} />
       ) }
       { modalName === 'file-link' && (
-        <ModalFileLink context={props.context} file={modalData} onClose={() => setModalName(null)} onSubmit={linkFile} />
+        <ModalFileLink context={context} file={modalData} onClose={() => setModalName(null)} onSubmit={linkFile} />
       ) }
-      {/* {this.renderAlert()} */}
-      </div>
+    </div>
   )
 }

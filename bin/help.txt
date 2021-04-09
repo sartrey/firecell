@@ -7,8 +7,7 @@
     firecell -d --fork
     firecell --mode=direct --port=8080 --path=~
     firecell --mode=mirror
-    firecell stop
-    firecell help
+    firecell --help
 
   default
   

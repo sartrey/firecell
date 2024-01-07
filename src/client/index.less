@@ -1,0 +1,35 @@
+.container {
+  h1 {
+    margin-bottom: 1rem;
+  }
+
+  a {
+    color: #369;
+    text-decoration: none;
+
+    &:hover {
+      font-style: italic;
+      color: #48c;
+      text-decoration: underline;
+    }
+
+    &:after {
+      display: inline-block;
+      font-style: normal !important;
+      content: '|';
+      margin: 0 .5rem;
+    }
+
+    &:last-of-type:after {
+      display: none;
+    }
+  }
+
+  .actions {
+    padding: 1rem;
+  }
+
+  .content {
+    padding: 1rem;
+  }
+}

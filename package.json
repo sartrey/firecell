@@ -1,0 +1,53 @@
+{
+  "name": "firecell",
+  "version": "3.0.0",
+  "description": "A local file server.",
+  "type": "module",
+  "bin": {
+    "firecell": "bin/firecell"
+  },
+  "scripts": {
+    "relay": "tsc --project src/config/tsconfig.json && node scripts/runner.js",
+    "start-server": "tsc --project src/server/tsconfig.json && npm run relay start-server",
+    "build-server": "tsc --project src/server/tsconfig.json",
+    "start-client": "npm run relay start-client",
+    "build-client": "tsc --project src/client/tsconfig.json && npm run relay build-client",
+    "clean": "rm -rf build",
+    "start": "npm run clean && epiijs_env=dev npm run start-server & npm run start-client & wait",
+    "build": "npm run clean && npm run build-server & npm run build-client & wait"
+  },
+  "keywords": [
+    "local",
+    "mirror",
+    "server",
+    "static",
+    "anywhere",
+    "everywhere",
+    "fetch"
+  ],
+  "author": "Sartrey Lee <sartrey@163.com> (https://sartrey.cn)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sartrey/firecell.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sartrey/firecell/issues"
+  },
+  "homepage": "https://github.com/sartrey/firecell#readme",
+  "devDependencies": {
+    "@epiijs/client": "^1.0.1",
+    "@epiijs/eslint-config": "^0.1.3",
+    "@types/node": "^20.2.1",
+    "@types/react": "^18.2.41",
+    "@types/react-dom": "^18.2.17",
+    "eslint": "^8.41.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.21.1"
+  },
+  "dependencies": {
+    "@epiijs/config": "^0.4.2",
+    "@epiijs/server": "^3.1.0"
+  }
+}

@@ -1,0 +1,53 @@
+@keyframes slideIn {
+  0% {
+    transform: translate(-50%, -50%);
+  }
+  100% {
+    transform: translate(-50%, -50% - 4rem);
+  }  
+}
+
+.overlay {
+  .modal {
+    position: absolute;
+    top: 50vh;
+    left: 50vw;
+    z-index: 1;
+    transform: translate(-50%, -50%);
+    background: #eee;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+    animation: .2s ease-out 0s 1 slideIn forwards;
+
+    .header {
+      display: flex;
+      padding: .5rem .75rem;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid #ddd;
+
+      .title {
+        flex: 1;
+      }
+
+      .close {
+        color: #999;
+        cursor: pointer;
+
+        &:hover {
+          color: #333;
+        }
+      }
+    }
+  }
+
+  .popup {
+    position: absolute;
+    z-index: 10;
+  }
+
+  .toast {
+    position: absolute;
+    z-index: 100;
+  }
+}

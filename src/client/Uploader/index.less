@@ -1,0 +1,48 @@
+.uploader {
+  .controls {
+    .input {
+      input[type="file"] {
+        display: none;
+      }
+    }
+
+    .action {
+      margin-bottom: .75rem;
+      padding: .75rem 1rem;
+      border: 1px dashed #ccc;
+      border-radius: 5px;
+  
+      &:hover {
+        color: #fff176;
+        background: #424242;
+        border: 1px solid #424242;
+      }
+    }
+  }
+
+  .info-card {
+    margin-bottom: 1rem;
+    padding: .75rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #f3f3f3;
+
+    .value {
+      > div {
+        margin-bottom: .5rem;
+
+        &:last-of-type {
+          margin-bottom: 0;
+        }
+
+        > span {
+          margin-right: .5rem;
+        }
+      }
+    }
+
+    .error {
+      color: #999;
+    }
+  }
+}

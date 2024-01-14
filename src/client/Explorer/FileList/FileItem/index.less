@@ -1,0 +1,88 @@
+.file-list {
+  .file-item {
+    margin: 0 .75rem .75rem 0;
+    box-sizing: border-box;
+    min-width: 10rem;
+    width: calc(25% - .75rem);
+    padding: .75rem;
+    line-height: 1.25rem;
+    border-radius: 3px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .5);
+    color: #424242;
+    background: #f6f6f6;
+    cursor: pointer;
+
+    &:hover {
+      color: #000;
+      background: #eee;
+    }
+
+    .extra {
+      display: flex;
+      font-size: 14px;
+      margin-top: .25rem;
+      color: #999;
+
+      &:hover {
+        color: #333;
+      }
+
+      .file-mime {
+        flex: 1;
+        margin-right: 1rem;
+      }
+
+      .file-size {
+        .unit {
+          margin-left: 2px;
+        }
+      }
+    }
+
+    .links {
+      display: flex;
+      margin-top: .5rem;
+
+      .action {
+        margin-right: .5rem;
+        color: #999;
+
+        .icon {
+          font-size: 18px;
+        }
+
+        .text {
+          display: none;
+          font-size: 14px;
+        }
+
+        &:hover {
+          color: #333;
+
+          .text {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+
+  .text-overflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.modal-qrcode {
+  min-width: 20rem;
+  min-height: 16rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  canvas {
+    width: 20rem;
+    height: 16rem;
+  };
+}

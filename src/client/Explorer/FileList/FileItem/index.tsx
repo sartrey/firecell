@@ -33,7 +33,7 @@ export default function FileItem({
       onChangeWorkPath?.(value.filePath);
       return;
     }
-    // TODO: default open ?
+    fetchApi('openFile', { filePath: value.filePath });
   };
 
   const popupQRCode = () => {
@@ -64,11 +64,11 @@ export default function FileItem({
         </div>
         {hostInfo && (
           <div className="links">
-            <Action target="_blank" href={hrefForLocalHost} text="localhost" icon="computer" />
-            <Action target="_blank" href={hrefForIntranet} text="intranet" icon="lan" />
+            <Action text="localhost" target="_blank" href={hrefForLocalHost} icon="computer" />
+            <Action text="intranet" target="_blank" href={hrefForIntranet} icon="lan" />
             {/* open by remote ip - icon public */}
             <Action text="QR" icon="qr_code_2" onClick={popupQRCode} />
-            <Action text="Shell" icon="open_in_new" onClick={raiseOpenFileByShell} />
+            <Action text="shell" icon="open_in_new" onClick={raiseOpenFileByShell} />
           </div>
         )}
       </>)}

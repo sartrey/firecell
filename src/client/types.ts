@@ -11,7 +11,7 @@ export interface IFileItem {
   itemType: 'file' | 'directory' | 'other';
   mimeType: string;
 
-  fileUUID: string;
+  fileUUID?: string;
 }
 
 export interface IFileTask {
@@ -26,6 +26,12 @@ export interface IFileTask {
   };
 }
 
+export interface IFilePart {
+  blobHead: number;
+  blobSize: number;
+  disposed: boolean;
+}
+
 export interface IResultForListFiles {
   workPath: string;
   fileItems: IFileItem[];
@@ -33,4 +39,8 @@ export interface IResultForListFiles {
 
 export interface IResultForPollFileTask {
   fileTask: IFileTask;
+}
+
+export interface IResultForPollFilePart {
+  filePart: IFilePart;
 }

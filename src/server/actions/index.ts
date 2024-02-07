@@ -22,9 +22,13 @@ export default async function Root(message: IncomingMessage, context: Context): 
   }
 
   const fileRoot = path.join(appConfig.root, appConfig.dirs.target, appConfig.dirs.client);
-  const fileName = message.url.replace(/^\/?/, '') || 'index.html';
   const fileNames = await readdir(fileRoot);
+  const rootPaths = ['transfer'];
 
+  let fileName = message.url.replace(/^\/?/, '');
+  if (!fileName || rootPaths.some(e => fileName.startsWith(e))) {
+    fileName = 'index.html';
+  }
   if (!fileNames.includes(fileName)) {
     throw new Error(`file not found [${message.url}]`);
   }

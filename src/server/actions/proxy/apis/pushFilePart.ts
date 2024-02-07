@@ -15,11 +15,16 @@ export default async function pushFilePart(params: IParams, state: IApiState): P
   if (!fileTask) {
     throw new Error(`task [${taskId}] not found`);
   }
-  fileTask.transfer.fileParts.push({
-    blobHead,
-    blobSize,
-    blobData,
-    disposed: false
-  });
+  const filePart = fileTask.transfer.fileParts.find(e => e.blobHead === blobHead);
+  if (!filePart) {
+    fileTask.transfer.fileParts.push({
+      blobHead,
+      blobSize,
+      blobData,
+      disposed: false
+    });
+  } else {
+    throw new Error('file part found');
+  }
   return {};
 }

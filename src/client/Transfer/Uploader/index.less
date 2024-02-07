@@ -1,22 +1,10 @@
 .uploader {
   .controls {
-    .input {
-      input[type="file"] {
-        display: none;
-      }
-    }
+    display: flex;
+    margin-right: -.75rem;
 
-    .action {
-      margin-bottom: .75rem;
-      padding: .75rem 1rem;
-      border: 1px dashed #ccc;
-      border-radius: 5px;
-  
-      &:hover {
-        color: #fff176;
-        background: #424242;
-        border: 1px solid #424242;
-      }
+    input[type="file"] {
+      display: none;
     }
   }
 
@@ -44,5 +32,14 @@
     .error {
       color: #999;
     }
+  }
+
+  .area-side-channel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: .75rem;
+    padding: .75rem;
+    border: 1px dashed #ccc;
   }
 }

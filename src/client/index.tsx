@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 
 import Explorer from './Explorer';
-import Uploader from './Uploader';
+import Transfer from './Transfer';
 
 import QRCode from './components/QRCode';
 import Social from './components/Social';
@@ -20,7 +20,7 @@ export default function Application(): React.ReactElement {
 
   const popupQRCode = (): void => {
     if (!stateHostInfo || !refOverlay.current) { return; }
-    const hrefForIntranet = `http://${stateHostInfo.ipv4}:${stateHostInfo.port}${pathname}`;
+    const hrefForIntranet = `http://${stateHostInfo.hostIPv4}:${stateHostInfo.hostPort}${pathname}`;
     refOverlay.current.popup({
       content: <QRCode value={hrefForIntranet} />,
       popover: {
@@ -42,7 +42,7 @@ export default function Application(): React.ReactElement {
           </div>
           <div className="menu">
             <Action text="QR" icon="qr_code" onClick={popupQRCode} />
-            <Action href="/uploader" text="Uploader" icon="upload" />
+            <Action href="/transfer" text="Transfer" icon="sync_alt" />
           </div>
           <div className="link">
             <Social name="twitter" />
@@ -50,10 +50,10 @@ export default function Application(): React.ReactElement {
           </div>
         </div>
         <div className="content">
-          {pathname === '/uploader' && (
-            <Uploader />
+          {pathname === '/transfer' && (
+            <Transfer />
           )}
-          {!['/uploader'].includes(pathname) && (
+          {!['/transfer'].includes(pathname) && (
             <Explorer onChangeWorkPath={setStateWorkPath} />
           )}
         </div>

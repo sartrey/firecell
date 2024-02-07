@@ -46,6 +46,7 @@
     "@types/react-dom": "^18.2.17",
     "@types/uuid": "^9.0.8",
     "eslint": "^8.41.0",
+    "qr-scanner": "^1.4.2",
     "qrcode": "^1.5.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -53,7 +54,7 @@
   },
   "dependencies": {
     "@epiijs/config": "^0.5.0",
-    "@epiijs/server": "^3.3.1",
+    "@epiijs/server": "^3.3.2",
     "mime-types": "^2.1.35",
     "uuid": "^9.0.1"
   }

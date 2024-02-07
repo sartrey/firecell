@@ -29,13 +29,14 @@ async function performFileTransfer(fileTask: IFileTaskInner): Promise<void> {
   while (nextBlobHead < fileSize) {
     const nextFilePart = transfer.fileParts.find(e => e.blobHead === nextBlobHead);
     if (!nextFilePart) {
-      if (retriedTimes > 30) {
+      if (retriedTimes > 300) {
         throw new Error('retried for next file part too many times');
       }
       await new Promise(resolve => setTimeout(resolve, 500));
       retriedTimes += 1;
       continue;
     }
+    retriedTimes = 0;
     const buffer = getBufferFromBase64(nextFilePart.blobData);
     fileTask.transfer.writeStream.write(buffer);
     nextFilePart.disposed = true;

@@ -5,6 +5,7 @@ import AppContext from '../../AppContext';
 import { fetchApi } from '../../fetcher';
 import { IFileItem, IResultForListFiles } from '../../types';
 
+import FileLink from './FileLink';
 import FileItem from './FileItem';
 import './index.less';
 
@@ -40,11 +41,15 @@ export default function FileList({
   }) => {
     const [stateKeyword, setStateKeyword] = useState<string>('');
     const filteredDataSource = dataSource.filter(fileItem => fileItem.fileName.includes(stateKeyword));
+    const isGroupForFileType = dataSource.some(e => e.itemType === 'file');
     return (
       <div className="group">
         <div className="header">
           <div className="title">{`${title} / ${filteredDataSource.length}`}</div>
           <div className="extra">
+            {/* {isGroupForFileType && (
+              <FileLink onReloadFileList={fetchFileItems} />
+            )} */}
             {dataSource.length > 1 && (
               <div className="filter">
                 <input type="text" placeholder="filter by name" onChange={e => setStateKeyword(e.target.value)} />

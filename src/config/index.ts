@@ -10,7 +10,7 @@ const config: IMaybeAppConfig = {
   dirs: {
     client: 'client',
     server: 'server'
-  } 
+  }
 };
 
 export default config;

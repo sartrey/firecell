@@ -1,0 +1,7 @@
+  
+  firecell [args]
+  
+  example
+  
+    firecell --play
+    firecell --play --port=9999

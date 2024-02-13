@@ -4,7 +4,7 @@
   "description": "A local file server.",
   "type": "module",
   "bin": {
-    "firecell": "bin/firecell"
+    "firecell": "scripts/launch.js"
   },
   "scripts": {
     "relay": "tsc --project src/config/tsconfig.json && node scripts/runner.js",

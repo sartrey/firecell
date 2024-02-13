@@ -1,23 +1,28 @@
 # firecell
 
-This is a web app powered by `epiijs`.
+A local static file server.
 
-## Project
+## Usage
 
-### About Server
+### install as global dependency
 
-`src/server` is a simple server powered by `epiijs`.
+`npm install -g firecell`
 
-Web server is the workload running at server hosts, such as AWS EC2 or Alibaba Cloud ECS. 
+### start server anywhere
 
-Generally modern web server is only suitable for providing API services.
+```sh
+# serve ~/ at 9999
+firecell --play
 
-### About Client
+# serve ~/ at 8080
+firecell --play --port=8080
 
-`src/client` is a simple React + LESS client powered by `epiijs`.
+# show help
+firecell --help
+```
 
-Users will access and run your client app in browser.
+### access homepage
 
-You can build client into static content and deploy product into cloud storage service, such as AWS S3 or Alibaba Cloud OSS.
-
-Also you can use your own server instead of CDN to deliver static content, but maybe you will pay more cost about stability and performance.
+```
+http://localhost:YOUR-PORT
+```

@@ -1,6 +1,7 @@
 .explorer {
   .toolbar {
     display: flex;
+    flex-wrap: wrap;
     padding: .5rem 0;
     margin: 0 -1px;
     overflow: hidden;
@@ -10,6 +11,7 @@
 
     > div {
       display: flex;
+      flex-wrap: wrap;
       border-right: 1px solid #ccc;
       padding: 0 .5rem;
 
@@ -17,7 +19,7 @@
         border-right: none;
       }
 
-      a {
+      .action {
         display: block;
         padding: .5rem .75rem;
         box-shadow: 0 0 1px rgba(0, 0, 0, .7);

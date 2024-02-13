@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, MouseEvent } from 'react';
 
 import AppContext from '../../../AppContext';
 import FileSize from '../../../components/FileSize';
@@ -28,15 +28,21 @@ export default function FileItem({
   const hrefForLocalHost = `http://localhost:${hostInfo?.hostPort}/proxy/${value.fileName}`;
   const hrefForIntranet = `http://${hostInfo?.hostIPv4}:${hostInfo?.hostPort}/proxy/${value.fileName}`;
 
-  const raiseDefaultAction = (e: React.MouseEvent) => {
+  const raiseOpenFileByShell = () => {
+    fetchApi('openFile', { filePath: value.filePath });
+  };
+
+  const raiseDefaultAction = (e: MouseEvent) => {
+    // TODO: preventRepeatClick
     if (value.itemType === 'directory') {
       onChangeWorkPath?.(value.filePath);
       return;
     }
-    fetchApi('openFile', { filePath: value.filePath });
+    raiseOpenFileByShell();
   };
 
-  const popupQRCode = () => {
+  const popupQRCode = (e: MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
     overlay.popup({
       content: (
         <QRCode value={hrefForIntranet} />
@@ -46,10 +52,6 @@ export default function FileItem({
         // align: 'bottom-left'
       }
     });
-  };
-
-  const raiseOpenFileByShell = () => {
-    fetchApi('openFile', { filePath: value.filePath });
   };
 
   return (
